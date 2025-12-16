@@ -9,11 +9,9 @@
       class="bg-amber-500 text-white px-4 py-2 rounded-lg flex items-center justify-center space-x-2 hover:bg-amber-600 transition-colors relative"
     >
       <span>{{ 'patients.new_requests' | transloco }}</span>
-      @if (pendingRequestsCount() > 0) {
-        <span class="bg-white text-amber-600 font-bold px-2 py-0.5 rounded-full text-sm">
-          +{{ pendingRequestsCount() }}
-        </span>
-      }
+      <span class="bg-white text-amber-600 font-bold px-2 py-0.5 rounded-full text-sm">
+        +4
+      </span>
     </button>
     <button
       *ngxPermissionsOnly="[userRole.ADMIN, userRole.ACCOUNTANT]"

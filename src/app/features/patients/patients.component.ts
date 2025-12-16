@@ -3,9 +3,8 @@ import {Component, DestroyRef, inject, OnInit, signal} from '@angular/core';
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule,} from '@angular/forms';
 import { AddPatientComponent } from '@features/patients/dialogs/add-patient/add-patient.component';
 import { PatientService } from '@features/patients/services/patient.service';
-import { PatientRequestService } from '@features/patients/services/patient-request.service';
 import { MatDialog } from '@angular/material/dialog';
-import { debounceTime, first, startWith, switchMap, interval } from 'rxjs';
+import { debounceTime, first, startWith, switchMap } from 'rxjs';
 import { PatientModel } from '@features/patients/models/patient.model';
 import { PaginationComponent } from '../../shared';
 import {ActivatedRoute, Router} from "@angular/router";
@@ -21,7 +20,6 @@ import { PatientSearchComponent } from './components/patient-search/patient-sear
 import { PatientListHeaderSectionComponent } from './components/patient-list-header-section/patient-list-header-section.component';
 import { PatientCardComponent } from './components/patient-card/patient-card.component';
 import { PatientEmptyStateComponent } from './components/patient-empty-state/patient-empty-state.component';
-import { PatientRequestsDialogComponent } from './dialogs/patient-requests/patient-requests-dialog.component';
 
 @Component({
   selector: 'app-patients',
@@ -45,9 +43,7 @@ export class PatientsComponent extends WithQueryParams implements OnInit {
   }
 
   readonly isLoading = signal<boolean>(true);
-  readonly pendingRequestsCount = signal<number>(0);
   private patientService = inject(PatientService);
-  private patientRequestService = inject(PatientRequestService);
   private dialog = inject(MatDialog);
   private activatedRoute = inject(ActivatedRoute);
   private toastService = inject(ToastService);
@@ -97,40 +93,10 @@ export class PatientsComponent extends WithQueryParams implements OnInit {
         this.data.set(data);
       });
 
-    this.loadPendingRequestsCount();
-
-    interval(60000)
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe(() => {
-        this.loadPendingRequestsCount();
-      });
-  }
-
-  loadPendingRequestsCount(): void {
-    this.patientRequestService.getPendingRequestsCount()
-      .pipe(first())
-      .subscribe({
-        next: (response) => {
-          this.pendingRequestsCount.set(response.count);
-        },
-        error: (error) => {
-          console.error('Error loading pending requests count:', error);
-        }
-      });
   }
 
   openRequestsDialog(): void {
-    const dialogRef = this.dialog.open(PatientRequestsDialogComponent, {
-      width: '800px',
-      maxWidth: '95vw',
-    });
-
-    dialogRef.afterClosed()
-      .pipe(first())
-      .subscribe(() => {
-        this.loadPendingRequestsCount();
-        this.form.patchValue(this.form.value);
-      });
+    this.router.navigate(['/patient-requests']);
   }
 
   deletePatient(patientId: number): void {

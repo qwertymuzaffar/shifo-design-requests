@@ -3,7 +3,6 @@
     <app-patient-list-header
       (onAddClick)="openDialog()"
       (onNewRequestsClick)="openRequestsDialog()"
-      [pendingRequestsCount]="pendingRequestsCount()"
     />
 
     <app-patient-search class="block" [searchControl]="form.controls.search" />
