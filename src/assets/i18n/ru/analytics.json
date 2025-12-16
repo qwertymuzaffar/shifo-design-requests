@@ -1,0 +1,67 @@
+{
+  "analytics": {
+    "title": "Аналитика",
+    "selectPeriod": "Выберите период для просмотра статистики",
+    "selectP": "Выберите период",
+    "cancel": "Отмена",
+    "apply": "Применить",
+    "clearFilter": "Очистить фильтр",
+
+    "totalPatients": "Всего пациентов",
+    "totalDoctors": "Всего врачей",
+    "activeDoctors": "Активных: {{count}}",
+    "totalAppointments": "Всего приемов",
+    "totalRevenue": "Общий доход",
+    "periodGrowth": "{{percent}} за период",
+
+    "financialSummary": "Финансовый итог",
+    "financialBreakdown": "Детализация финансов",
+
+    "customerDebt": "Долг клиентов",
+    "customerOverpayments": "Переплаты клиентов",
+
+    "servicesRenderedAmount": "Услуг выполнено",
+    "cashReceived": "Поступления в кассу",
+    "servicesOnCredit": "Услуги в долг",
+    "prepaymentBalance": "Остаток предоплаты",
+
+    "paidServices": "Оплаченные услуги",
+
+    "services": "Количество: {{count}}",
+    "paidServicesCount": "Оплачено услуг: {{count}}",
+    "onCredit": "В долг: {{count}}",
+    "prepayment": "Предоплат: {{count}}",
+
+    "appointmentStatuses": {
+      "title": "Статус приемов",
+      "planned": "Запланирован",
+      "completed": "Завершенный",
+      "cancelled": "Отменен"
+    },
+
+    "appointmentTypes": {
+      "title": "Типы приемов",
+      "consultation": "Консультация",
+      "procedure": "Процедура"
+    },
+
+    "doctorRating": {
+      "title": "Рейтинг врачей",
+      "doctor": "Врач",
+      "specialization": "Специализация",
+      "appointments": "Приемы",
+      "completed": "Завершено",
+      "cancelled": "Отменено",
+      "efficiency": "Эффективность",
+      "revenue": "Доход"
+    },
+
+    "paymentMethods": {
+      "title": "Методы оплаты",
+      "cash": "Наличные",
+      "alif": "Alif",
+      "dushanbeCity": "Душанбе City",
+      "eskhata": "Эсхата Банк"
+    }
+  }
+}

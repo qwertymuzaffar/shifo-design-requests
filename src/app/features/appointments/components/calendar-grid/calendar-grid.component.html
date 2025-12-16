@@ -1,0 +1,33 @@
+<div class="flex-1 overflow-x-auto">
+  <app-calendar-date-header
+    [displayDays]="displayDays()"
+    (dateClicked)="clonedAppointment.emit($event)"
+  />
+  <div
+    class="grid min-h-full"
+    [style.grid-template-columns]="'repeat(8, minmax(120px, 1fr))'"
+  >
+    <app-time-column
+      [timeSlots]="timeSlots()"
+      [isCurrentTime]="isCurrentTime.bind(this)"
+    />
+
+    @for (date of displayDays(); track $index; let index = $index) {
+      <div class="border-r border-gray-200 last:border-r-0">
+        @for (time of timeSlots(); track time) {
+          @let appointmentsInSlot = getAppointmentsForSlot(date, time, index);
+          @let isCurrentSlot = isCurrentTime(time);
+          <app-week-slot
+            [appointments]="appointmentsInSlot"
+            [isCurrentSlot]="isCurrentSlot"
+            [durationLabel]="'м'"
+            (appointmentSelected)="openDetails($event)"
+            (emptySlotClicked)="
+              addAppointment(date, time, appointmentsInSlot, doctors()[index])
+            "
+          />
+        }
+      </div>
+    }
+  </div>
+</div>

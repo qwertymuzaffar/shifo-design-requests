@@ -1,0 +1,27 @@
+.animate-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.4;
+  }
+}
+
+.skeleton-c {
+  @apply flex justify-between p-4 border border-gray-100 rounded-lg;
+  min-height: 3rem;
+}
+
+.skeleton-av {
+  @apply h-12 w-12 rounded-full bg-gray-300;
+  @apply flex items-center justify-center;
+  flex-shrink: 0;
+}
+
+.animate-pulse-p {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}

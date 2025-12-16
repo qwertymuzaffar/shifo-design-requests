@@ -1,0 +1,21 @@
+:host {
+  display: block;
+  width: 100%;
+  overscroll-behavior: auto;
+  touch-action: pan-x pan-y;
+  -webkit-overflow-scrolling: touch;
+}
+
+.grid {
+  min-width: max-content;
+}
+
+.grid.border-bottom {
+  border-bottom: 1px solid #e5e7eb;
+  touch-action: manipulation;
+}
+
+.timetable-cell {
+  @apply p-1 flex items-center justify-center text-center text-sm text-gray-500 border-r border-gray-200;
+  touch-action: manipulation;
+}

@@ -1,0 +1,95 @@
+@if (isVisible()) {
+  <div
+    class="bg-white p-4 md:p-6 rounded-xl shadow-sm border border-gray-100 mt-4"
+  >
+    <div class="flex justify-between items-center mb-4">
+      <h2 class="text-lg md:text-xl font-semibold text-gray-900">
+        {{ 'manage-doctors.procedures_management_title' | transloco }}
+      </h2>
+      <button
+        (click)="close.emit()"
+        class="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+        type="button"
+        [title]="'manage-doctors.close' | transloco"
+      >
+        <lucide-icon
+          [name]="X"
+          [size]="20"
+          class="text-gray-600"
+        ></lucide-icon>
+      </button>
+    </div>
+    <div class="space-y-4">
+      <div *ngxPermissionsOnly="[userRole.ADMIN, userRole.ACCOUNTANT]" class="flex gap-2">
+        <input
+          type="text"
+          [ngModel]="newProcedureName()"
+          (ngModelChange)="newProcedureNameChange.emit($event)"
+          class="flex-1 px-3 py-2 text-sm md:text-base border border-gray-200 rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-sky-500"
+          [placeholder]="
+            'manage-doctors.new_procedure_placeholder' | transloco
+          "
+          (keyup.enter)="create.emit()"
+        />
+        <button
+          (click)="create.emit()"
+          class="bg-emerald-600 text-white px-3 md:px-4 py-2 rounded-lg hover:bg-emerald-700 transition-colors flex items-center justify-center space-x-2"
+          [disabled]="isCreating()"
+        >
+          @if (isCreating()) {
+            <lucide-icon [name]="LoaderCircle" [size]="16" class="animate-spin"></lucide-icon>
+          } @else {
+            <img src="assets/svg/plus.svg" alt="" />
+          }
+          <span class="hidden md:inline">{{ 'manage-doctors.add_procedure' | transloco }}</span>
+        </button>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
+        @if (procedures().isLoading()) {
+          <p>{{ 'manage-doctors.loading' | transloco }}</p>
+        } @else {
+          @for (procedure of visibleProcedures(); track procedure.id) {
+            <div
+              class="flex items-center justify-between p-3 bg-emerald-50 rounded-lg border border-emerald-200 hover:shadow-sm transition-shadow"
+            >
+              <div class="flex-1 min-w-0">
+                <p
+                  class="font-medium text-gray-900 text-sm md:text-base truncate"
+                >
+                  {{ procedure.name }}
+                </p>
+              </div>
+              <button
+                *ngxPermissionsOnly="[userRole.ADMIN, userRole.ACCOUNTANT]"
+                (click)="delete.emit(procedure.id)"
+                class="ml-2 p-2 text-gray-600 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors flex-shrink-0"
+                type="button"
+                [title]="
+                  'manage-doctors.delete_procedure_title' | transloco
+                "
+              >
+                <lucide-icon [name]="Trash2" [size]="16"></lucide-icon>
+              </button>
+            </div>
+          }
+        }
+      </div>
+      @if (procedures().value().length > 12) {
+        <div class="flex justify-center mt-4">
+          <button
+            (click)="toggleShowAll.emit()"
+            class="text-sky-600 hover:text-sky-700 font-medium"
+          >
+            {{
+              (showAll()
+                ? 'manage-doctors.show_less'
+                : 'manage-doctors.show_more'
+              ) | transloco
+            }}
+          </button>
+        </div>
+      }
+    </div>
+  </div>
+}
+

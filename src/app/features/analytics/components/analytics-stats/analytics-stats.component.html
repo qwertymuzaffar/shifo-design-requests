@@ -1,0 +1,131 @@
+<div class="flex flex-wrap gap-3 lg:gap-6 mb-3 lg:mb-6">
+  <app-stat-card
+    [icon]="Users"
+    [iconItemColor]="'sky'"
+    [iconBgColor]="'sky'"
+    [label]="'analytics.totalPatients' | transloco"
+    [value]="analyticsData()?.totalPatients?.total"
+    [tendIconColor]="'green'"
+    [tendTextColor]="'green'"
+    [tendIcon]="TrendingUp"
+    [tendText]="(analyticsData()?.totalPatients?.growth ?? '—') + '% ' + ('analytics.periodGrowth' | transloco: { percent: '' })">
+  </app-stat-card>
+
+  <app-stat-card
+    [icon]="Activity"
+    [iconItemColor]="'emerald'"
+    [iconBgColor]="'emerald'"
+    [label]="'analytics.totalDoctors' | transloco"
+    [value]="doctorData()?.total"
+    [tendTextColor]="'gray'"
+    [tendText]="'analytics.activeDoctors' | transloco: { count: (analyticsData()?.totalActiveDoctors ?? 0) }">
+  </app-stat-card>
+
+  <app-stat-card
+    [label]="'analytics.totalAppointments' | transloco"
+    [value]="analyticsData()?.totalAppointments?.total"
+    [icon]="Calendar"
+    [iconItemColor]="'amber'"
+    [iconBgColor]="'amber'"
+    [tendIconColor]="'green'"
+    [tendTextColor]="'green'"
+    [tendIcon]="TrendingUp"
+    [tendText]="(analyticsData()?.totalAppointments?.growth ?? '-') + '% ' + ('analytics.periodGrowth' | transloco)">
+  </app-stat-card>
+
+  <app-stat-card
+    [label]="'analytics.totalRevenue' | transloco"
+    [value]="analyticsData()?.totalRevenue?.total"
+    [icon]="DollarSign"
+    [iconItemColor]="'rose'"
+    [iconBgColor]="'rose'"
+    [tendIconColor]="'green'"
+    [tendTextColor]="'green'"
+    [tendIcon]="TrendingUp"
+    [tendText]="(analyticsData()?.totalRevenue?.growth ?? '') + '% ' + ('analytics.periodGrowth' | transloco)">
+  </app-stat-card>
+</div>
+
+<h2 class="text-base md:text-xl font-semibold mb-3 md:mb-4">
+  {{ 'analytics.financialSummary' | transloco }}
+</h2>
+<div class="flex flex-wrap gap-3 lg:gap-6 mb-3 lg:mb-6">
+  <app-stat-card
+    [loading]="balancesSummary.isLoading()"
+    [label]="'finance.expenses' | transloco"
+    [icon]="TrendingDown"
+    [iconItemColor]="'rose'"
+    [iconBgColor]="'rose'"
+    [valueColor]="'rose'"
+    [value]="balancesSummary.value()?.expenses"
+    [tendIconColor]="'rose'"
+    [tendTextColor]="'rose'"
+  >
+  </app-stat-card>
+
+  <app-stat-card
+    [loading]="balancesSummary.isLoading()"
+    [label]="'finance.net_profit' | transloco"
+    [icon]="DollarSign"
+    [iconItemColor]="'sky'"
+    [iconBgColor]="'sky'"
+    [valueColor]="'sky'"
+    [value]="balancesSummary.value()?.netProfit"
+  >
+  </app-stat-card>
+</div>
+
+
+<h2 class="text-base md:text-xl font-semibold mb-3 md:mb-4">
+  {{ 'analytics.financialBreakdown' | transloco }}
+</h2>
+<div class="flex flex-wrap gap-3 gap-3 lg:gap-6 mb-3 lg:mb-6">
+  <app-stat-card
+    [loading]="financialDetails.isLoading()"
+    [label]="'analytics.servicesRenderedAmount' | transloco"
+    [icon]="FileText"
+    [iconItemColor]="'sky'"
+    [iconBgColor]="'sky'"
+    [valueColor]="'sky'"
+    [value]="financialDetails.value()?.totalServicesAmount"
+    [tendText]="'analytics.services' | transloco: { count: (financialDetails.value()?.servicesCount ?? 0) }">
+    >
+  </app-stat-card>
+
+  <app-stat-card
+    [loading]="financialDetails.isLoading()"
+    [label]="'analytics.paidServices' | transloco"
+    [icon]="DollarSign"
+    [iconItemColor]="'sky'"
+    [iconBgColor]="'sky'"
+    [valueColor]="'sky'"
+    [value]="financialDetails.value()?.paidServicesAmount"
+    [tendText]="'analytics.services' | transloco: { count: (financialDetails.value()?.paidServicesAmountCount ?? 0) }">
+    >
+  </app-stat-card>
+
+  <app-stat-card
+    [loading]="financialDetails.isLoading()"
+    [label]="'analytics.cashReceived' | transloco"
+    [icon]="CreditCard"
+    [iconItemColor]="'green'"
+    [iconBgColor]="'green'"
+    [valueColor]="'green'"
+    [value]="financialDetails.value()?.cashReceived"
+    [tendIconColor]="'rose'"
+    [tendText]="'analytics.paidServicesCount' | transloco: { count: (financialDetails.value()?.paidServicesCount ?? 0) }">
+    >
+  </app-stat-card>
+
+  <app-stat-card
+    [loading]="financialDetails.isLoading()"
+    [label]="'analytics.servicesOnCredit' | transloco"
+    [icon]="CircleAlert"
+    [iconItemColor]="'green'"
+    [iconBgColor]="'green'"
+    [valueColor]="'green'"
+    [value]="financialDetails.value()?.debtAmount"
+    [tendText]="'analytics.onCredit' | transloco: { count: (financialDetails.value()?.debtCount ?? 0) }">
+    >
+  </app-stat-card>
+</div>

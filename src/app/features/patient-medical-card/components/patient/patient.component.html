@@ -1,0 +1,51 @@
+@let patientInfo = patient.value().data.patient;
+@if(patientInfo) {
+  <div class="bg-white rounded-xl shadow-lg p-6 mb-6">
+    <div class="flex items-start space-x-6">
+      <app-patient-avatar [fullName]="patientInfo.fullName" />
+      <div class="flex-1">
+        <app-patient-header
+          [fullName]="patientInfo.fullName"
+          [birthDate]="patientInfo.birthDate"
+          [id]="patientInfo.id"
+        />
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <app-patient-contact-item
+            icon="phone"
+            [value]="patientInfo.phone"
+          />
+
+          @if(patientInfo.email) {
+            <app-patient-contact-item
+              icon="mail"
+              [value]="patientInfo.email"
+            />
+          }
+
+          @if(patientInfo.address) {
+            <app-patient-contact-item
+              icon="map-pin"
+              [value]="patientInfo.address"
+            />
+          }
+
+          @if(patientInfo.phoneInsurance) {
+            <app-patient-contact-item
+              icon="shield"
+              [value]="patientInfo.phoneInsurance"
+            />
+          }
+
+          @if(patientInfo.emergencyContact) {
+            <app-patient-contact-item
+              icon="user-check"
+              [label]="'patient-info.emergency-contact' | transloco"
+              [value]="patientInfo.emergencyContact"
+              colSpan="md:col-span-2"
+            />
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+}

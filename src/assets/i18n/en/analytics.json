@@ -1,0 +1,67 @@
+{
+  "analytics": {
+    "title": "Analytics",
+    "selectPeriod": "Select a period to view statistics",
+    "selectP": "Select period",
+    "cancel": "Cancel",
+    "apply": "Apply",
+    "clearFilter": "Clear filter",
+
+    "totalPatients": "Total patients",
+    "totalDoctors": "Total doctors",
+    "activeDoctors": "Active: {{count}}",
+    "totalAppointments": "Total appointments",
+    "totalRevenue": "Total revenue",
+    "periodGrowth": "{{percent}} during the period",
+
+    "financialSummary": "Financial Summary",
+    "financialBreakdown": "Financial Breakdown",
+
+    "customerDebt": "Customer debt",
+    "customerOverpayments": "Customer overpayments",
+
+    "servicesRenderedAmount": "Services rendered for the amount",
+    "cashReceived": "Cash receipts",
+    "servicesOnCredit": "Services on credit",
+    "prepaymentBalance": "Prepayment balance",
+
+    "paidServices": "Paid services",
+
+    "services": "Quantity: {{count}}",
+    "paidServicesCount": "Paid services: {{count}}",
+    "onCredit": "On credit: {{count}}",
+    "prepayment": "Prepayment: {{count}}",
+
+    "appointmentStatuses": {
+      "title": "Appointment status",
+      "planned": "Planned",
+      "completed": "Completed",
+      "cancelled": "Cancelled"
+    },
+
+    "appointmentTypes": {
+      "title": "Appointment types",
+      "consultation": "Consultation",
+      "procedure": "Procedure"
+    },
+
+    "doctorRating": {
+      "title": "Doctors rating",
+      "doctor": "Doctor",
+      "specialization": "Specialization",
+      "appointments": "Appointments",
+      "completed": "Completed",
+      "cancelled": "Cancelled",
+      "efficiency": "Efficiency",
+      "revenue": "Revenue"
+    },
+
+    "paymentMethods": {
+      "title": "Payment methods",
+      "cash": "Cash",
+      "alif": "Alif",
+      "dushanbeCity": "Dushanbe City",
+      "eskhata": "Eskhata Bank"
+    }
+  }
+}

@@ -1,0 +1,200 @@
+<div class="bg-white rounded-xl space-y-4 p-2">
+  <!-- Header -->
+  <div class="flex items-center justify-between border-b pb-3">
+    <h2 class="text-xl font-bold text-gray-900">
+      {{ 'appointment-details.title' | transloco }}
+    </h2>
+    <lucide-icon
+      matDialogClose
+      [img]="Close"
+      class="w-5 h-5 text-gray-600 cursor-pointer"
+    ></lucide-icon>
+  </div>
+
+  @if (appointment.isLoading()) {
+    <div class="space-y-3 animate-pulse">
+      <div class="h-4 bg-gray-200 rounded w-3/4"></div>
+      <div class="h-4 bg-gray-200 rounded w-1/2"></div>
+      <div class="h-4 bg-gray-200 rounded w-2/3"></div>
+      ...
+    </div>
+  }
+
+  @if (appointment.value(); as appointment) {
+    <div class="flex items-center space-x-2">
+      <lucide-icon [img]="User" class="w-4 h-4 text-gray-600"></lucide-icon>
+      <span class="font-medium text-gray-800">
+        {{ appointment.patient.fullName }}
+      </span>
+    </div>
+
+    <div class="flex items-center space-x-2 text-gray-700">
+      <lucide-icon
+        [img]="Calendar"
+        class="w-4 h-4 text-gray-600 mr-2"
+      ></lucide-icon>
+      {{ 'appointment-details.date' | transloco }}:
+      <span>{{ appointment.date | date: 'dd MMM yyyy' }}</span>
+      <lucide-icon [img]="Clock" class="w-4 h-4 text-gray-600"></lucide-icon>
+      <span
+      >{{ appointment.time }} -
+        {{ appointment.time | addMinutes: appointment.duration }}</span
+      >
+    </div>
+
+    <div class="flex items-center space-x-2 text-gray-700">
+      <lucide-icon
+        [img]="Calendar"
+        class="w-4 h-4 text-gray-600 mr-2"
+      ></lucide-icon>
+      {{ 'appointment-details.created' | transloco }}:
+      <span>{{ appointment.createdAt | date: 'dd MMM yyyy hh:mm' }}</span>
+    </div>
+
+    <div class="flex items-center space-x-2 text-gray-700">
+      <lucide-icon
+        [img]="Calendar"
+        class="w-4 h-4 text-gray-600 mr-2"
+      ></lucide-icon>
+      {{ 'appointment-details.updated' | transloco }}:
+      <span>{{ appointment.updatedAt | date: 'dd MMM yyyy hh:mm' }}</span>
+    </div>
+
+    <div class="flex items-start space-x-2">
+      <lucide-icon
+        [img]="FileText"
+        class="w-4 h-4 text-gray-600 mt-0.5"
+      ></lucide-icon>
+      <span class="text-gray-700">
+        {{ 'appointment-details.symptoms' | transloco }}:
+        <span class="font-medium">{{ appointment.symptoms || '-' }}</span>
+      </span>
+    </div>
+
+    <div class="flex items-start space-x-2">
+      <lucide-icon
+        [img]="FileText"
+        class="w-4 h-4 text-gray-600 mt-0.5"
+      ></lucide-icon>
+      <span class="text-gray-700">
+        {{ 'appointment-details.notes' | transloco }}:
+        <span class="font-medium">{{ appointment.notes || '-' }}</span>
+      </span>
+    </div>
+
+    <div class="flex items-start space-x-2">
+      <lucide-icon
+        [img]="Clipboard"
+        class="w-4 h-4 text-gray-600 mt-0.5"
+      ></lucide-icon>
+      <span class="text-gray-700">
+        {{ 'appointment-details.type' | transloco }}:
+        <span class="font-medium">{{ appointment.type | typeTranslate }}</span>
+      </span>
+    </div>
+
+    <div class="flex items-start space-x-2">
+      <lucide-icon
+        [img]="Stethoscope"
+        class="w-4 h-4 text-gray-600 mt-0.5"
+      ></lucide-icon>
+      <span class="text-gray-700">
+        {{ 'appointment-details.doctor' | transloco }}:
+        <span class="font-medium"
+        >{{ appointment.doctor?.firstName }}
+          {{ appointment.doctor?.lastName }} ({{
+            appointment.doctor?.specialization?.name
+          }})</span
+        >
+      </span>
+    </div>
+
+    <div class="flex items-center space-x-2">
+      <span class="text-gray-700"
+      >{{ 'appointment-details.status' | transloco }}:</span
+      >
+      <span
+        [ngClass]="{
+          'bg-green-100 text-green-700': appointment.status === AppointmentStatus.COMPLETED,
+          'bg-blue-100 text-blue-700': appointment.status === AppointmentStatus.SCHEDULED,
+          'bg-red-100 text-red-700': appointment.status === AppointmentStatus.CANCELLED,
+          'bg-pink-100 text-pink-800': appointment.status === AppointmentStatus.CANCELLED_FOREVER,
+          'bg-yellow-100 text-yellow-700': appointment.status === AppointmentStatus.TEMPORARY,
+        }"
+        class="px-3 py-1 text-sm rounded-full font-medium"
+      >
+        {{ appointment.status | statusTranslate }}
+      </span>
+    </div>
+
+    @if (appointment.payments && appointment.payments.length > 0) {
+      <div class="flex items-start space-x-2">
+        <div class="w-full overflow-x-auto bg-gray-50 p-4 rounded-xl border border-gray-200">
+          <table class="min-w-full table-auto">
+            <thead class="bg-gray-100">
+            <tr>
+              <th
+                class="px-4 py-2 text-left text-sm font-semibold text-gray-600">{{ 'appointment-details.payment.amount' | transloco }}
+              </th>
+              <th
+                class="px-4 py-2 text-left text-sm font-semibold text-gray-600">{{ 'appointment-details.payment.kind' | transloco }}
+              </th>
+              <th
+                class="px-4 py-2 text-left text-sm font-semibold text-gray-600">{{ 'appointment-details.payment.type' | transloco }}
+              </th>
+              <th
+                class="px-4 py-2 text-left text-sm font-semibold text-gray-600">{{ 'appointment-details.payment.date' | transloco }}
+              </th>
+            </tr>
+            </thead>
+            <tbody>
+              @for (payment of appointment.payments; track payment.id) {
+                <tr class="border-t border-gray-200">
+                  <td class="px-4 py-2 text-sm text-gray-700">{{ payment.amount | currency:'смн' }}</td>
+                  <td class="px-4 py-2 text-sm text-gray-700">{{ translatePaymentKind(payment.paymentKind) }}</td>
+                  <td class="px-4 py-2 text-sm text-gray-700">{{ translatePaymentType(payment.paymentType) }}</td>
+                  <td class="px-4 py-2 text-sm text-gray-600">{{ payment.paidAt | date: 'short' }}</td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+    }
+
+    <div class="flex flex-wrap justify-between gap-3 items-center pt-3 border-t mt-5">
+        <span
+          (click)="duplicateAppointment()"
+          class="flex-1 whitespace-nowrap justify-center flex items-center gap-1 px-3 py-1.5 text-sm rounded-lg text-sky-700 bg-sky-100 hover:bg-sky-200 cursor-pointer transition-colors"
+        >
+          <lucide-icon [img]="Copy" [size]="14"></lucide-icon>
+          {{ 'appointment-details.actions.duplicate' | transloco }}
+        </span>
+
+      <span
+        (click)="editAppointment()"
+        class="flex-1 whitespace-nowrap justify-center flex items-center gap-1 px-3 py-1.5 text-sm rounded-lg text-blue-700 bg-blue-100 hover:bg-blue-200 cursor-pointer transition-colors"
+      >
+          <lucide-icon [img]="Edit" [size]="14"></lucide-icon>
+        {{ 'appointment-details.actions.edit' | transloco }}
+        </span>
+
+      @if (appointment.status === AppointmentStatus.SCHEDULED) {
+        <span
+          (click)="completeAppointment()"
+          class="flex-1 whitespace-nowrap justify-center flex items-center gap-1 px-3 py-1.5 text-sm rounded-lg text-green-700 bg-green-100 hover:bg-green-200 cursor-pointer transition-colors"
+        >
+            <lucide-icon [img]="Finished" [size]="14"></lucide-icon>
+          {{ 'appointment-details.actions.complete' | transloco }}
+          </span>
+        <span
+          (click)="cancelAppointment()"
+          class="flex-1 whitespace-nowrap justify-center flex items-center gap-1 px-3 py-1.5 text-sm rounded-lg text-red-700 bg-red-100 hover:bg-red-200 cursor-pointer transition-colors"
+        >
+            <lucide-icon [img]="Cancel" [size]="14"></lucide-icon>
+          {{ 'appointment-details.actions.cancel' | transloco }}
+          </span>
+      }
+    </div>
+  }
+</div>

@@ -1,0 +1,63 @@
+<div class="p-3 md:p-6">
+  <div class="space-y-3 md:space-y-6">
+    <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-3">
+      <h1 class="text-2xl md:text-3xl font-bold text-gray-900">
+        {{ 'finance.title' | transloco }}
+      </h1>
+      <div class="flex flex-col md:flex-row w-full md:w-auto gap-2 md:gap-4">
+        <button
+          *ngxPermissionsOnly="[userRole.ADMIN, userRole.ACCOUNTANT]"
+          (click)="handleAddPayment()"
+          class="bg-green-600 text-white px-4 py-2.5 rounded-lg flex items-center justify-center gap-2 hover:bg-green-700 transition-colors"
+        >
+          <img src="assets/icons/add.svg" alt="Добавить" class="w-4 h-4 md:w-5 md:h-5" />
+          <span class="text-sm md:text-base">{{ 'finance.add_payment' | transloco }}</span>
+        </button>
+        <button
+          *ngxPermissionsOnly="[userRole.ADMIN, userRole.ACCOUNTANT]"
+          (click)="handleAddExpense()"
+          class="bg-red-600 text-white px-4 py-2.5 rounded-lg flex items-center justify-center gap-2 hover:bg-red-700 transition-colors"
+        >
+          <img src="assets/icons/add.svg" alt="Добавить" class="w-4 h-4 md:w-5 md:h-5" />
+          <span class="text-sm md:text-base">{{ 'finance.add_expense' | transloco }}</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="bg-white rounded-xl shadow-sm border border-gray-100">
+      <div>
+        <div class="border-b border-gray-200">
+          <nav class="flex">
+            <button
+              (click)="activeTab.set(tabType.Payments)"
+              [ngClass]="{
+                'text-green-600 border-green-600 hover:text-green-600':
+                  activeTab() === tabType.Payments,
+              }"
+              class="flex-1 py-3 md:py-4 px-3 md:px-6 text-center text-sm md:text-base font-medium transition-colors border-b-2 hover:text-gray-700"
+            >
+              {{ 'finance.income' | transloco }}
+            </button>
+
+            <button
+              (click)="activeTab.set(tabType.Expenses)"
+              class="flex-1 py-3 md:py-4 px-3 md:px-6 text-center text-sm md:text-base font-medium transition-colors border-b-2 hover:text-gray-700"
+              [ngClass]="{
+                'border-red-600 text-red-600 hover:text-red-600':
+                  activeTab() === tabType.Expenses,
+              }"
+            >
+              {{ 'finance.expenses' | transloco }}
+            </button>
+          </nav>
+
+          @if (activeTab() === tabType.Payments) {
+            <app-payment (filterChanged)="filterData.set($event)" />
+          } @else {
+            <app-expenses></app-expenses>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

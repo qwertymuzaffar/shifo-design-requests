@@ -1,0 +1,114 @@
+<div class="p-2 sm:p-3 flex flex-wrap lg:items-center justify-between gap-3 flex-col md:flex-row">
+  <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 sm:gap-4">
+    <div class="flex items-center justify-between sm:justify-start gap-2">
+      <h2 class="text-base sm:text-lg lg:text-xl font-semibold text-gray-900 capitalize truncate flex-1 min-w-0">
+        {{ calendarTitle() }}
+      </h2>
+      <div class="flex items-center space-x-1">
+        <button
+          (click)="navigate.emit('prev')"
+          class="p-1.5 sm:p-2 hover:bg-gray-100 rounded-lg transition-colors"
+        >
+          <lucide-icon
+            [name]="ChevronLeft"
+            [size]="18"
+            class="text-gray-600"
+          ></lucide-icon>
+        </button>
+        <button
+          (click)="navigate.emit('next')"
+          class="p-1.5 sm:p-2 hover:bg-gray-100 rounded-lg transition-colors"
+        >
+          <lucide-icon
+            [name]="ChevronRight"
+            [size]="18"
+            class="text-gray-600"
+          ></lucide-icon>
+        </button>
+      </div>
+    </div>
+
+    <div class="flex items-center gap-2">
+      <button
+        (click)="setCurrentDate.emit()"
+        class="px-2.5 sm:px-3 py-1.5 text-xs sm:text-sm bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors whitespace-nowrap"
+      >
+        {{ 'calendar-header.today' | transloco }}
+      </button>
+
+      <div class="flex bg-gray-100 rounded-lg p-1 flex-1 sm:flex-initial">
+        <button
+          (click)="setViewMode.emit('day')"
+          class="px-2.5 sm:px-3 py-1 text-xs sm:text-sm rounded-md transition-colors flex-1 sm:flex-initial whitespace-nowrap"
+          [ngClass]="{
+            'bg-white text-gray-900 shadow-sm': viewMode() === 'day',
+            'text-gray-600 hover:text-gray-900': viewMode() !== 'day'
+          }"
+        >
+          {{ 'calendar-header.day' | transloco }}
+        </button>
+        <button
+          (click)="setViewMode.emit('week')"
+          class="px-2.5 sm:px-3 py-1 text-xs sm:text-sm rounded-md transition-colors flex-1 sm:flex-initial whitespace-nowrap"
+          [ngClass]="{
+            'bg-white text-gray-900 shadow-sm': viewMode() === 'week',
+            'text-gray-600 hover:text-gray-900': viewMode() !== 'week'
+          }"
+        >
+          {{ 'calendar-header.week' | transloco }}
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="flex items-center gap-3 flex-col lg:flex-row w-full lg:w-auto">
+    <app-form-field class="flex-1 relative" [control]="patientControl">
+      <div class="flex items-center">
+        <input
+          class="lg:!w-72 !w-full !py-2 !rounded"
+          [placeholder]="'calendar-header.patient' | transloco"
+          type="text"
+          [formControl]="patientControl"
+          [matAutocomplete]="auto"
+        />
+        @if (patientControl.value) {
+          <lucide-icon
+            (click)="clearFilterByKey(filterKey.PATIENT_ID)"
+            [img]="X"
+            class="absolute right-1 top-1/2 -translate-y-1/2 cursor-pointer text-gray-400 w-5 h-5"
+          ></lucide-icon>
+        }
+      </div>
+
+      <mat-autocomplete
+        #auto="matAutocomplete"
+        optionsScroll
+        (optionsScroll)="loaderPatients()"
+      >
+        @for (patient of patientDataPagination().items; track patient) {
+          <mat-option
+            (click)="selectEvent(filterKey.PATIENT_ID, patient.id)"
+            [value]="patient.fullName"
+          >
+            {{ patient.fullName }}
+          </mat-option>
+        }
+      </mat-autocomplete>
+    </app-form-field>
+
+    <app-doctor-multi-select
+      class="flex-1 lg:!w-72 !w-full min-w-72"
+      [doctors]="doctors()"
+      [formControl]="doctorControl"
+    />
+
+    <button
+      (click)="clearFilter()"
+      class="w-full lg:w-auto flex items-center gap-2 px-3 py-2 lg:self-center text-gray-600 bg-gray-100 hover:bg-gray-200 hover:text-gray-800 rounded-lg transition-colors text-sm font-medium"
+      [title]="'calendar-header.clear_filter' | transloco"
+    >
+      <lucide-icon [img]="X" [size]="18"></lucide-icon>
+      <span class="lg:hidden">{{ 'calendar-header.clear_filter' | transloco }}</span>
+    </button>
+  </div>
+</div>

@@ -1,0 +1,18 @@
+<div class="relative">
+  <input
+    [formControl]="searchControl()"
+    class="w-full pl-10 pr-20 py-3 border border-gray-200 rounded-lg focus:outline-none"
+    type="text"
+    [placeholder]="'patients.search_placeholder' | transloco"
+  />
+  <button
+    class="absolute right-1 top-1 text-white rounded-lg px-4 py-2 hover:bg-blue-600 focus:outline-none bg-sky-500"
+    type="button"
+  >
+    <img
+      src="assets/icons/search.svg"
+      alt="{{ 'patients.add' | transloco }}"
+    />
+  </button>
+</div>
+

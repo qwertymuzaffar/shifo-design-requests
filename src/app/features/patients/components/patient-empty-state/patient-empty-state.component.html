@@ -1,0 +1,19 @@
+@if (hasSearch()) {
+  <div class="flex justify-center items-center flex-col gap-2">
+    <p class="text-gray-500 text-center">
+      {{ 'patients.not_found' | transloco }}
+    </p>
+    <button
+      class="p-2 hover:text-gray-400 text-gray-600 bg-gray-100 rounded-lg transition-colors"
+      (click)="onClearFilter.emit()"
+    >
+      {{ 'patients.clear_filter' | transloco }}
+    </button>
+  </div>
+} @else {
+  <p class="text-gray-500 text-center">
+    {{ 'patients.not_found' | transloco }}
+  </p>
+}
+
+

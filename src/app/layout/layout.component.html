@@ -1,0 +1,10 @@
+<div class="flex h-screen bg-gray-50">
+  <app-sidebar class="hidden lg:flex"></app-sidebar>
+
+  <main class="flex-1 flex flex-col overflow-hidden">
+    <app-mobile-header class="lg:hidden"></app-mobile-header>
+    <div class="flex-1 overflow-auto">
+      <router-outlet></router-outlet>
+    </div>
+  </main>
+</div>

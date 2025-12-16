@@ -1,0 +1,86 @@
+<div
+  class="bg-gradient-to-br from-white to-gray-50 border border-gray-200 rounded-xl p-3 cursor-pointer hover:shadow-lg active:shadow-xl transition-all"
+  (click)="onCardClick.emit()"
+>
+  <div class="flex items-start gap-3 pb-3 border-b border-gray-200 mb-3">
+    <div class="w-10 h-10 rounded-full bg-gradient-to-r from-sky-400 to-blue-500 flex items-center justify-center shrink-0">
+      <img src="assets/icons/user.svg" alt="User" class="w-5 h-5" />
+    </div>
+    <div class="flex-1 min-w-0">
+      <div class="font-bold text-gray-900 text-sm truncate">
+        {{ payment().appointment?.patient?.fullName ?? payment().patient?.fullName }}
+      </div>
+      @if (payment().appointment?.patient?.phone ?? payment().patient?.phone; as phoneNumber) {
+        <div class="text-xs text-gray-600">
+          {{ phoneNumber | phoneFormat }}
+        </div>
+      }
+    </div>
+  </div>
+
+  <div class="grid grid-cols-2 gap-2 mb-3">
+    <div class="bg-white rounded-lg px-3 py-2 border border-gray-200">
+      <div class="text-xs text-gray-500 mb-1">{{ 'amount' | transloco }}</div>
+      @if (payment().paymentKind == PaymentType.Debt) {
+        <div class="font-bold text-sm text-red-500">
+          -{{ payment().amount }} с
+        </div>
+      } @else if (payment().paymentKind == PaymentType.Prepayment) {
+        <div class="font-bold text-sm text-green-500">
+          +{{ payment().amount }} с
+        </div>
+      } @else {
+        <div class="font-bold text-gray-900 text-sm">
+          {{ payment().amount }} с
+        </div>
+      }
+    </div>
+
+    <div class="bg-white rounded-lg px-3 py-2 border border-gray-200">
+      <div class="text-xs text-gray-500 mb-1">{{ 'method' | transloco }}</div>
+      <div class="flex items-center gap-1.5">
+        <img
+          [src]="getPaymentMethodIcon(payment().paymentType)"
+          [alt]="payment().paymentType"
+          width="20px"
+        />
+        <span class="text-xs font-medium capitalize truncate">
+          {{ payment().paymentType }}
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <div class="bg-white rounded-lg px-3 py-2 border border-gray-200">
+    <div class="flex items-center justify-between">
+      <div>
+        <div class="text-xs text-gray-500">{{ 'date' | transloco }}</div>
+        <div class="text-xs font-medium text-gray-900">
+          {{ payment().createdAt | date: 'dd.MM.yyyy HH:mm' }}
+        </div>
+      </div>
+      <div>
+        @if (payment().status === 'paid') {
+          <span class="text-xs font-medium text-green-600 bg-green-50 px-2 py-1 rounded-full">
+            {{ 'paid_at' | transloco }}: {{ payment().paidAt | date: 'dd.MM' }}
+          </span>
+        } @else if (payment().status === 'pending') {
+          <span class="text-xs font-medium text-yellow-600 bg-yellow-50 px-2 py-1 rounded-full">
+            {{ 'awaiting_payment' | transloco }}
+          </span>
+        } @else if (payment().status === 'failed') {
+          <span class="text-xs font-medium text-red-600 bg-red-50 px-2 py-1 rounded-full">
+            {{ 'not_paid' | transloco }}
+          </span>
+        }
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+

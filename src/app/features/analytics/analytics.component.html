@@ -1,0 +1,71 @@
+<div class="p-3 lg:p-6">
+  <div class="space-y-3 lg:space-y-6">
+    <div>
+      <div
+        class="hidden lg:flex justify-between items-center analytics lg:mb-4 mb-1"
+      >
+        <h1 class="lg:text-3xl text-xl font-bold text-gray-900 mb-1">
+          {{ 'analytics.title' | transloco }}
+        </h1>
+      </div>
+
+      <div class="flex flex-col sm:flex-row gap-3 lg:gap-6 mb-3 lg:mb-6">
+        <app-stat-card
+          class="flex-1 min-w-0"
+          [loading]="clientBalances.isLoading()"
+          [label]="'analytics.customerDebt' | transloco"
+          [icon]="DollarSign"
+          [iconItemColor]="'rose'"
+          [iconBgColor]="'rose'"
+          [valueColor]="'rose'"
+          [value]="clientBalances.value()?.clientDebt ?? 0"
+        >
+        </app-stat-card>
+
+        <app-stat-card
+          class="flex-1 min-w-0"
+          [loading]="clientBalances.isLoading()"
+          [label]="'analytics.customerOverpayments' | transloco"
+          [icon]="Wallet"
+          [iconItemColor]="'sky'"
+          [iconBgColor]="'sky'"
+          [valueColor]="'sky'"
+          [value]="clientBalances.value()?.clientOverpayments ?? 0"
+        >
+        </app-stat-card>
+      </div>
+
+      <app-period-selector
+        [dateRangeText]="dateRangeText()"
+        [selectedDates]="selectedDates()"
+        (datesChange)="onDatesChange($event)"
+        (applyDates)="onApplyDates($event)"
+        (clearFilter)="onClearFilter()"
+      />
+
+      @if (isLoading()) {
+        <app-analytics-skeleton />
+      } @else {
+        <app-analytics-stats
+          [analyticsData]="analyticsData()"
+          [doctorData]="data()"
+          [filter]="{
+            from: selectedDates().from,
+            to: selectedDates().to,
+            filterByAppointmentDate: true
+            }"
+        />
+
+        <app-appointment-status-types [analyticsData]="analyticsData()" />
+
+        <app-doctor-rating
+          [doctorRatings]="analyticsData()?.doctorRatings ?? []"
+        />
+
+        <app-payment-methods
+          [paymentMethods]="analyticsData()?.paymentMethods ?? []"
+        />
+      }
+    </div>
+  </div>
+</div>

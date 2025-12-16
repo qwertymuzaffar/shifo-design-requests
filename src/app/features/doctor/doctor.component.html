@@ -1,0 +1,95 @@
+<div class="p-3 md:p-6">
+  <div class="space-y-4 md:space-y-6">
+    <app-doctor-header
+      [isSpecializationManagementVisible]="isSpecializationManagementVisible()"
+      [isProcedureManagementVisible]="isProcedureManagementVisible()"
+      [userRole]="userRole"
+      (toggleSpecialization)="isSpecializationManagementVisible.set(!isSpecializationManagementVisible())"
+      (toggleProcedure)="isProcedureManagementVisible.set(!isProcedureManagementVisible())"
+      (openDialog)="openDialog()"
+    />
+
+    <app-doctor-filters
+      class="block"
+      [specializationId]="form.controls['specializationId']"
+      [search]="form.controls.search"
+      [specializations]="specializations"
+    />
+
+    <app-specialization-management
+      [isVisible]="isSpecializationManagementVisible()"
+      [specializations]="specializations"
+      [newSpecializationName]="newSpecializationName"
+      [isCreating]="isCreatingSpecialization()"
+      [showAll]="showAllSpecializations()"
+      (close)="isSpecializationManagementVisible.set(false)"
+      (create)="createSpecialization()"
+      (delete)="deleteSpecialization($event)"
+      (toggleShowAll)="showAllSpecializations.set(!showAllSpecializations())"
+      (newSpecializationNameChange)="newSpecializationName = $event"
+    />
+
+    <app-procedure-management
+      [isVisible]="isProcedureManagementVisible()"
+      [procedures]="procedures"
+      [newProcedureName]="newProcedureName"
+      [isCreating]="isCreatingProcedure()"
+      [showAll]="showAllProcedures()"
+      (close)="isProcedureManagementVisible.set(false)"
+      (create)="createProcedure()"
+      (delete)="deleteProcedure($event)"
+      (toggleShowAll)="showAllProcedures.set(!showAllProcedures())"
+      (newProcedureNameChange)="newProcedureName = $event"
+    />
+
+    <div class="bg-white rounded-xl shadow-sm border border-gray-100">
+      <div class="p-3 md:p-6">
+        <div class="flex justify-between items-center relative mb-3 md:mb-4">
+          <h2 class="text-lg md:text-xl font-semibold">
+            {{ 'manage-doctors.doctor_list_title' | transloco }}
+          </h2>
+          <h3 class="text-xs md:text-sm font-medium text-gray-500">
+            {{
+              'manage-doctors.total_doctors'
+                | transloco: { count: data().total }
+            }}
+          </h3>
+        </div>
+        <div class="space-y-4">
+          @if (isLoading()) {
+            <app-skeleton-doctor />
+          } @else {
+            @for (doctor of data().items; track doctor.id) {
+              <app-doctor-card
+                class="block"
+                [doctor]="doctor"
+                (onEdit)="openDialog($event)"
+                (onDelete)="deleteDoctor($event)"
+                (onCopy)="toast()"
+              />
+            } @empty {
+              <div class="flex justify-center items-center flex-col gap-2 py-8">
+                <p class="text-gray-500 text-center text-sm md:text-base">
+                  {{ 'manage-doctors.no_doctors' | transloco }}
+                </p>
+                <button
+                  class="px-4 py-2 hover:text-gray-400 text-gray-600 bg-gray-100 rounded-lg transition-colors text-sm"
+                  (click)="clearFilter()"
+                >
+                  {{ 'patients.clear_filter' | transloco }}
+                </button>
+              </div>
+            }
+          }
+        </div>
+      </div>
+      <app-pagination
+        [totalCount]="data().total"
+        [limit]="data().limit"
+        [page]="data().page"
+        (pageChange)="pageChange($event)"
+        (limitChange)="limitChange($event)"
+      />
+    </div>
+  </div>
+</div>
