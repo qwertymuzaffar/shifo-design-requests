@@ -2,18 +2,32 @@
   <h1 class="md:text-3xl text-xl font-bold text-gray-900">
     {{ 'patients.title' | transloco }}
   </h1>
-  <button
-    *ngxPermissionsOnly="[userRole.ADMIN, userRole.ACCOUNTANT]"
-    (click)="onAddClick.emit()"
-    class="bg-sky-500 text-white px-4 py-2 rounded-lg flex items-center justify-center space-x-2 hover:bg-sky-600 transition-colors"
-  >
-    <img
-      src="assets/icons/add.svg"
-      alt="{{ 'patients.add' | transloco }}"
-      class="w-5 h-5"
-    />
-    <span>{{ 'patients.add' | transloco }}</span>
-  </button>
+  <div class="flex gap-2 flex-wrap">
+    <button
+      *ngxPermissionsOnly="[userRole.ADMIN, userRole.ACCOUNTANT]"
+      (click)="onNewRequestsClick.emit()"
+      class="bg-amber-500 text-white px-4 py-2 rounded-lg flex items-center justify-center space-x-2 hover:bg-amber-600 transition-colors relative"
+    >
+      <span>{{ 'patients.new_requests' | transloco }}</span>
+      @if (pendingRequestsCount() > 0) {
+        <span class="bg-white text-amber-600 font-bold px-2 py-0.5 rounded-full text-sm">
+          +{{ pendingRequestsCount() }}
+        </span>
+      }
+    </button>
+    <button
+      *ngxPermissionsOnly="[userRole.ADMIN, userRole.ACCOUNTANT]"
+      (click)="onAddClick.emit()"
+      class="bg-sky-500 text-white px-4 py-2 rounded-lg flex items-center justify-center space-x-2 hover:bg-sky-600 transition-colors"
+    >
+      <img
+        src="assets/icons/add.svg"
+        alt="{{ 'patients.add' | transloco }}"
+        class="w-5 h-5"
+      />
+      <span>{{ 'patients.add' | transloco }}</span>
+    </button>
+  </div>
 </div>
 
 

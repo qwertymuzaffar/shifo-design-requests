@@ -12,6 +12,8 @@ import { UserRole } from '@core/models/user.model';
 })
 export class PatientListHeaderComponent {
   onAddClick = output<void>();
+  onNewRequestsClick = output<void>();
+  pendingRequestsCount = input<number>(0);
   protected readonly userRole = UserRole;
 }
 
