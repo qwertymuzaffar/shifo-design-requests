@@ -77,6 +77,97 @@
         </div>
       </div>
 
+      @if (balancesSummary.value(); as summary) {
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 md:gap-6">
+          <div class="bg-gradient-to-br from-green-50 to-green-100 rounded-2xl shadow-lg border border-green-200 p-4 sm:p-6 hover:shadow-xl transition-all duration-200 transform hover:-translate-y-1">
+            <div class="flex items-center justify-between">
+              <div class="flex-1">
+                <p class="text-xs sm:text-sm font-medium text-green-700 mb-1">
+                  {{ 'finance.total_income' | transloco }}
+                </p>
+                <p class="text-2xl sm:text-3xl font-bold text-green-900">
+                  {{ summary.income }} <span class="text-lg sm:text-xl">TJS</span>
+                </p>
+              </div>
+              <div class="bg-green-500 p-3 rounded-xl shadow-lg">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="w-6 h-6 sm:w-8 sm:h-8 text-white"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M7 11l5-5m0 0l5 5m-5-5v12"
+                  />
+                </svg>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-gradient-to-br from-red-50 to-red-100 rounded-2xl shadow-lg border border-red-200 p-4 sm:p-6 hover:shadow-xl transition-all duration-200 transform hover:-translate-y-1">
+            <div class="flex items-center justify-between">
+              <div class="flex-1">
+                <p class="text-xs sm:text-sm font-medium text-red-700 mb-1">
+                  {{ 'finance.total_expenses' | transloco }}
+                </p>
+                <p class="text-2xl sm:text-3xl font-bold text-red-900">
+                  {{ summary.expenses }} <span class="text-lg sm:text-xl">TJS</span>
+                </p>
+              </div>
+              <div class="bg-red-500 p-3 rounded-xl shadow-lg">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="w-6 h-6 sm:w-8 sm:h-8 text-white"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M17 13l-5 5m0 0l-5-5m5 5V6"
+                  />
+                </svg>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl shadow-lg border border-blue-200 p-4 sm:p-6 hover:shadow-xl transition-all duration-200 transform hover:-translate-y-1 sm:col-span-2 lg:col-span-1">
+            <div class="flex items-center justify-between">
+              <div class="flex-1">
+                <p class="text-xs sm:text-sm font-medium text-blue-700 mb-1">
+                  {{ 'finance.net_balance' | transloco }}
+                </p>
+                <p class="text-2xl sm:text-3xl font-bold text-blue-900">
+                  {{ summary.netProfit }} <span class="text-lg sm:text-xl">TJS</span>
+                </p>
+              </div>
+              <div class="bg-blue-500 p-3 rounded-xl shadow-lg">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="w-6 h-6 sm:w-8 sm:h-8 text-white"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"
+                  />
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+      }
+
       <div class="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden">
         <nav class="flex border-b border-gray-200 bg-gray-50">
           <button
