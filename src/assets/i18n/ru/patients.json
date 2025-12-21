@@ -107,7 +107,36 @@
       "patient": "Пациент",
       "visits": "Посещения",
       "documents": "Документы",
+      "payments": "Платежи",
       "settings": "Настройки"
+    },
+    "payments": {
+      "title": "История платежей",
+      "no-payments": "Платежи для этого пациента не найдены",
+      "table": {
+        "date": "Дата",
+        "amount": "Сумма",
+        "type": "Тип",
+        "method": "Метод",
+        "status": "Статус"
+      },
+      "details": {
+        "title": "Детали платежа",
+        "payment-date": "Дата платежа",
+        "amount": "Сумма",
+        "payment-type": "Тип платежа",
+        "payment-method": "Способ оплаты",
+        "status": "Статус",
+        "appointment-info": "Связанная запись",
+        "procedure": "Процедура/Услуга",
+        "appointment-date": "Дата записи",
+        "doctor": "Врач",
+        "total-cost": "Общая стоимость",
+        "remaining-balance": "Остаток",
+        "prepayment-notice": "Это предоплата",
+        "prepayment-description": "Этот платеж был сделан в качестве предоплаты за услугу или запись, указанную ниже.",
+        "close": "Закрыть"
+      }
     }
   },
   "patient-documents": {

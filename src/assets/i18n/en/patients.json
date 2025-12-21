@@ -107,7 +107,36 @@
       "patient": "Patient",
       "visits": "Visits",
       "documents": "Documents",
+      "payments": "Payments",
       "settings": "Settings"
+    },
+    "payments": {
+      "title": "Payment History",
+      "no-payments": "No payments found for this patient",
+      "table": {
+        "date": "Date",
+        "amount": "Amount",
+        "type": "Type",
+        "method": "Method",
+        "status": "Status"
+      },
+      "details": {
+        "title": "Payment Details",
+        "payment-date": "Payment Date",
+        "amount": "Amount",
+        "payment-type": "Payment Type",
+        "payment-method": "Payment Method",
+        "status": "Status",
+        "appointment-info": "Related Appointment",
+        "procedure": "Procedure/Service",
+        "appointment-date": "Appointment Date",
+        "doctor": "Doctor",
+        "total-cost": "Total Cost",
+        "remaining-balance": "Remaining Balance",
+        "prepayment-notice": "This is a prepayment",
+        "prepayment-description": "This payment was made as a prepayment for the service or appointment listed below.",
+        "close": "Close"
+      }
     }
   },
   "patient-documents": {
