@@ -114,9 +114,18 @@ export class DateRangePickerComponent implements OnInit {
       currentDates.to = clickedDate;
       this.lastSelectionMode.set('single');
     } else if (lastMode === 'single') {
-      currentDates.from = clickedDate;
-      currentDates.to = null;
-      this.lastSelectionMode.set('range');
+      if (this.datesAreEqual(currentDates.from, clickedDate)) {
+        currentDates.to = null;
+        this.lastSelectionMode.set('range');
+      } else {
+        if (clickedDate.getTime() >= currentDates.from!.getTime()) {
+          currentDates.to = clickedDate;
+        } else {
+          currentDates.to = currentDates.from;
+          currentDates.from = clickedDate;
+        }
+        this.lastSelectionMode.set('range');
+      }
     } else if (isRangeInProgress) {
       if (clickedDate.getTime() >= currentDates.from!.getTime()) {
         currentDates.to = clickedDate;
