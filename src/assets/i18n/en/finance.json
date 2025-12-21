@@ -31,12 +31,16 @@
             "alif": "Alif"
         },
         "title": "Finance Management",
+        "subtitle": "Track your income, expenses, and financial health",
         "add_payment": "Add Payment",
         "add_expense": "Add Expense",
         "income": "Income",
         "expenses": "Expenses",
         "net_profit": "Net Profit",
-        "outstandingDebt": "Outstanding debt"
+        "outstandingDebt": "Outstanding debt",
+        "total_income": "Total Income",
+        "total_expenses": "Total Expenses",
+        "net_balance": "Net Balance"
     },
     "expense": {
         "update_success": "Expense successfully updated",

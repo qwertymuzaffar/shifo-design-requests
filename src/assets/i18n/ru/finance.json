@@ -31,12 +31,16 @@
             "alif": "Alif"
         },
         "title": "Управление финансами",
+        "subtitle": "Отслеживайте доходы, расходы и финансовое здоровье",
         "add_payment": "Добавить платеж",
         "add_expense": "Добавить расход",
         "income": "Доходы",
         "expenses": "Расходы",
         "net_profit": "Чистая прибыль",
-        "outstandingDebt": "Непогашенный долг"
+        "outstandingDebt": "Непогашенный долг",
+        "total_income": "Общий доход",
+        "total_expenses": "Общие расходы",
+        "net_balance": "Чистый баланс"
     },
     "expense": {
         "update_success": "Трата успешно обновлена",

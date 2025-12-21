@@ -1,8 +1,8 @@
-<div class="p-3 sm:p-6">
+<div class="p-3 sm:p-4 md:p-6">
   <form [formGroup]="form">
-    <div class="space-y-6">
-      <div class="bg-white p-3 sm:p-6 rounded-xl shadow-sm border border-gray-100">
-        <div class="flex flex-col lg:flex-row items-stretch lg:items-center gap-3">
+    <div class="space-y-4 md:space-y-6">
+      <div class="bg-gradient-to-br from-white to-gray-50 p-3 sm:p-4 md:p-6 rounded-xl shadow-md border border-gray-200">
+        <div class="flex flex-col lg:flex-row items-stretch lg:items-center gap-2 sm:gap-3">
           <div class="flex-1 relative">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
               stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -118,11 +118,16 @@
         </div>
       </div>
 
-      <div class="bg-white rounded-xl shadow-sm border border-gray-100">
-        <div class="p-3 sm:p-6">
-          <h2 class="text-xl font-semibold mb-4">
-            {{ 'payment_list' | transloco }}
-          </h2>
+      <div class="bg-white rounded-xl shadow-md border border-gray-200">
+        <div class="p-3 sm:p-4 md:p-6">
+          <div class="flex items-center justify-between mb-4 md:mb-6">
+            <h2 class="text-lg sm:text-xl font-bold text-gray-900">
+              {{ 'payment_list' | transloco }}
+            </h2>
+            <div class="text-sm text-gray-500">
+              {{ data().total }} {{ 'payments_total' | transloco }}
+            </div>
+          </div>
 
           @if (isLoading()) {
             <div class="block md:hidden">
