@@ -109,85 +109,86 @@
       </p>
     </div>
   } @else {
-    <div class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
-      <div class="overflow-x-auto">
-        <table class="w-full">
-          <thead class="bg-gray-50 border-b border-gray-200">
-            <tr>
-              <th class="px-4 lg:px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
-                Patient Name
-              </th>
-              <th class="px-4 lg:px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider hidden md:table-cell">
-                Phone
-              </th>
-              <th class="px-4 lg:px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
-                Overpayment
-              </th>
-              <th class="px-4 lg:px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider hidden lg:table-cell">
-                Prepaid Services
-              </th>
-              <th class="px-4 lg:px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider hidden lg:table-cell">
-                Last Prepayment
-              </th>
-            </tr>
-          </thead>
-          <tbody class="divide-y divide-gray-200">
-            @for (overpayment of overpayments(); track overpayment.patientId) {
-              <tr
-                (click)="navigateToPatient(overpayment.patientId)"
-                class="hover:bg-gray-50 cursor-pointer transition-colors"
-              >
-                <td class="px-4 lg:px-6 py-4">
-                  <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 bg-gradient-to-br from-sky-500 to-sky-600 rounded-full flex items-center justify-center flex-shrink-0">
-                      <span class="text-white font-medium text-sm">
-                        {{ getInitials(overpayment.fullName) }}
-                      </span>
-                    </div>
-                    <div>
-                      <p class="text-sm font-medium text-gray-900">
-                        {{ overpayment.fullName }}
-                      </p>
-                      <p class="text-xs text-gray-500 md:hidden">
-                        {{ overpayment.phone | phoneFormat }}
-                      </p>
-                    </div>
-                  </div>
-                </td>
-                <td class="px-4 lg:px-6 py-4 text-sm text-gray-900 hidden md:table-cell">
-                  {{ overpayment.phone | phoneFormat }}
-                </td>
-                <td class="px-4 lg:px-6 py-4">
-                  <span class="inline-flex items-center px-2.5 py-1 rounded-full text-sm font-semibold bg-sky-100 text-sky-700">
-                    {{ overpayment.totalOverpayment | number: '1.0-0' }} ₸
-                  </span>
-                </td>
-                <td class="px-4 lg:px-6 py-4 text-sm text-gray-900 hidden lg:table-cell">
-                  <div class="flex items-center gap-2">
-                    <span class="w-8 h-8 bg-emerald-100 rounded-full flex items-center justify-center">
-                      <span class="text-emerald-700 font-semibold text-xs">
-                        {{ overpayment.prepaidServicesCount }}
-                      </span>
-                    </span>
-                    <span class="text-gray-600">
-                      {{ overpayment.prepaidServicesCount }} {{ overpayment.prepaidServicesCount === 1 ? 'service' : 'services' }}
-                    </span>
-                  </div>
-                </td>
-                <td class="px-4 lg:px-6 py-4 text-sm text-gray-900 hidden lg:table-cell">
-                  @if (overpayment.lastPrepaymentDate) {
-                    <div class="flex items-center gap-2 text-gray-600">
-                      <lucide-icon [img]="Calendar" class="w-4 h-4"></lucide-icon>
-                      <span>{{ overpayment.lastPrepaymentDate | date: 'dd.MM.yyyy' }}</span>
-                    </div>
-                  } @else {
-                    <span class="text-gray-400">—</span>
-                  }
-                </td>
+    <div class="bg-white rounded-xl shadow-sm border border-gray-100">
+      <div class="p-3 md:p-6">
+        <div class="overflow-x-auto">
+          <table class="w-full">
+            <thead>
+              <tr class="border-b border-gray-200">
+                <th class="text-left py-3 px-4 font-medium text-gray-600">
+                  Patient Name
+                </th>
+                <th class="text-left py-3 px-4 font-medium text-gray-600 hidden md:table-cell">
+                  Phone
+                </th>
+                <th class="text-left py-3 px-4 font-medium text-gray-600">
+                  Overpayment
+                </th>
+                <th class="text-left py-3 px-4 font-medium text-gray-600 hidden lg:table-cell">
+                  Prepaid Services
+                </th>
+                <th class="text-left py-3 px-4 font-medium text-gray-600 hidden lg:table-cell">
+                  Last Prepayment
+                </th>
               </tr>
-            }
-          </tbody>
-        </table>
+            </thead>
+            <tbody class="w-full">
+              @for (overpayment of overpayments(); track overpayment.patientId) {
+                <tr
+                  class="border-b border-gray-100 hover:bg-gray-50 transition-colors cursor-pointer"
+                  (click)="navigateToPatient(overpayment.patientId)"
+                >
+                  <td class="py-4 px-4">
+                    <div class="flex items-center gap-3">
+                      <div class="w-10 h-10 bg-gradient-to-br from-sky-100 to-sky-200 rounded-full flex items-center justify-center flex-shrink-0">
+                        <lucide-icon [img]="User" class="w-5 h-5 text-sky-700"></lucide-icon>
+                      </div>
+                      <div>
+                        <p class="font-medium text-gray-900">{{ overpayment.fullName }}</p>
+                        <p class="text-sm text-gray-500 md:hidden">
+                          {{ overpayment.phone | phoneFormat }}
+                        </p>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="py-4 px-4 text-gray-900 hidden md:table-cell">
+                    {{ overpayment.phone | phoneFormat }}
+                  </td>
+                  <td class="py-4 px-4">
+                    <span class="font-semibold text-sky-600">
+                      {{ overpayment.totalOverpayment | number: '1.0-0' }} ₸
+                    </span>
+                    <p class="text-xs text-gray-500 lg:hidden mt-1">
+                      {{ overpayment.prepaidServicesCount }} {{ overpayment.prepaidServicesCount === 1 ? 'service' : 'services' }}
+                    </p>
+                  </td>
+                  <td class="py-4 px-4 hidden lg:table-cell">
+                    <div class="flex items-center gap-2">
+                      <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-emerald-50 border border-emerald-200">
+                        <span class="text-emerald-700 font-semibold">
+                          {{ overpayment.prepaidServicesCount }}
+                        </span>
+                      </span>
+                      <span class="text-gray-600 text-sm">
+                        {{ overpayment.prepaidServicesCount === 1 ? 'service' : 'services' }}
+                      </span>
+                    </div>
+                  </td>
+                  <td class="py-4 px-4 text-gray-900 hidden lg:table-cell">
+                    @if (overpayment.lastPrepaymentDate) {
+                      <div class="flex items-center gap-2">
+                        <lucide-icon [img]="Calendar" class="w-4 h-4 text-gray-500"></lucide-icon>
+                        <span class="text-sm text-gray-600">{{ overpayment.lastPrepaymentDate | date: 'dd.MM.yyyy' }}</span>
+                      </div>
+                    } @else {
+                      <span class="text-gray-400 text-sm">—</span>
+                    }
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   }
