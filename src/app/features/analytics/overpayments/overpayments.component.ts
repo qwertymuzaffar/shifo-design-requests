@@ -1,7 +1,6 @@
 import { Component, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-import { TranslocoPipe } from '@jsverse/transloco';
 import { LucideAngularModule, ArrowLeft, User, Calendar } from 'lucide-angular';
 import { AnalyticsService } from '@features/analytics/service/analytics.service';
 import { OverpaymentModel } from '@features/analytics/models/overpayment.model';
@@ -13,7 +12,6 @@ import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
   standalone: true,
   imports: [
     CommonModule,
-    TranslocoPipe,
     LucideAngularModule,
     PhoneFormatPipe,
     NgxSkeletonLoaderModule

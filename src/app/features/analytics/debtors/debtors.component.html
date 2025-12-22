@@ -5,16 +5,16 @@
       class="flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors mb-4"
     >
       <lucide-icon [img]="ArrowLeft" class="w-5 h-5"></lucide-icon>
-      <span class="text-sm font-medium">{{ 'debtors.backToAnalytics' | transloco }}</span>
+      <span class="text-sm font-medium">Back to Analytics</span>
     </button>
 
     <div class="flex items-center justify-between mb-2">
       <h1 class="text-2xl lg:text-3xl font-bold text-gray-900">
-        {{ 'debtors.title' | transloco }}
+        Debtors
       </h1>
       @if (!isLoading()) {
         <div class="text-right">
-          <p class="text-sm text-gray-600">{{ 'debtors.totalDebt' | transloco }}</p>
+          <p class="text-sm text-gray-600">Total Debt</p>
           <p class="text-2xl font-bold text-rose-600">{{ totalDebt() | number: '1.0-0' }} ₸</p>
         </div>
       }
@@ -22,7 +22,7 @@
 
     @if (!isLoading()) {
       <p class="text-sm text-gray-600">
-        {{ 'debtors.totalDebtors' | transloco: { count: debtors().length } }}
+        Total debtors: {{ debtors().length }}
       </p>
     }
   </div>
@@ -102,10 +102,10 @@
         </div>
       </div>
       <h3 class="text-lg font-semibold text-gray-900 mb-2">
-        {{ 'debtors.emptyState.title' | transloco }}
+        No Debtors Found
       </h3>
       <p class="text-sm text-gray-600">
-        {{ 'debtors.emptyState.description' | transloco }}
+        There are currently no patients with outstanding debts.
       </p>
     </div>
   } @else {
@@ -115,19 +115,19 @@
           <thead class="bg-gray-50 border-b border-gray-200">
             <tr>
               <th class="px-4 lg:px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
-                {{ 'debtors.table.patientName' | transloco }}
+                Patient Name
               </th>
               <th class="px-4 lg:px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider hidden md:table-cell">
-                {{ 'debtors.table.phone' | transloco }}
+                Phone
               </th>
               <th class="px-4 lg:px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
-                {{ 'debtors.table.debt' | transloco }}
+                Debt
               </th>
               <th class="px-4 lg:px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider hidden lg:table-cell">
-                {{ 'debtors.table.unpaidServices' | transloco }}
+                Unpaid Services
               </th>
               <th class="px-4 lg:px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider hidden lg:table-cell">
-                {{ 'debtors.table.lastVisit' | transloco }}
+                Last Visit
               </th>
             </tr>
           </thead>
@@ -170,7 +170,7 @@
                       </span>
                     </span>
                     <span class="text-gray-600">
-                      {{ 'debtors.table.services' | transloco: { count: debtor.unpaidServicesCount } }}
+                      {{ debtor.unpaidServicesCount }} {{ debtor.unpaidServicesCount === 1 ? 'service' : 'services' }}
                     </span>
                   </div>
                 </td>

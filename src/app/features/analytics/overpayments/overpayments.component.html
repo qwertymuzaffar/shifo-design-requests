@@ -5,16 +5,16 @@
       class="flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors mb-4"
     >
       <lucide-icon [img]="ArrowLeft" class="w-5 h-5"></lucide-icon>
-      <span class="text-sm font-medium">{{ 'overpayments.backToAnalytics' | transloco }}</span>
+      <span class="text-sm font-medium">Back to Analytics</span>
     </button>
 
     <div class="flex items-center justify-between mb-2">
       <h1 class="text-2xl lg:text-3xl font-bold text-gray-900">
-        {{ 'overpayments.title' | transloco }}
+        Overpayments
       </h1>
       @if (!isLoading()) {
         <div class="text-right">
-          <p class="text-sm text-gray-600">{{ 'overpayments.totalOverpayment' | transloco }}</p>
+          <p class="text-sm text-gray-600">Total Overpayment</p>
           <p class="text-2xl font-bold text-sky-600">{{ totalOverpayment() | number: '1.0-0' }} ₸</p>
         </div>
       }
@@ -22,7 +22,7 @@
 
     @if (!isLoading()) {
       <p class="text-sm text-gray-600">
-        {{ 'overpayments.totalCustomers' | transloco: { count: overpayments().length } }}
+        Total customers: {{ overpayments().length }}
       </p>
     }
   </div>
@@ -102,10 +102,10 @@
         </div>
       </div>
       <h3 class="text-lg font-semibold text-gray-900 mb-2">
-        {{ 'overpayments.emptyState.title' | transloco }}
+        No Overpayments Found
       </h3>
       <p class="text-sm text-gray-600">
-        {{ 'overpayments.emptyState.description' | transloco }}
+        There are currently no patients with overpayments.
       </p>
     </div>
   } @else {
@@ -115,19 +115,19 @@
           <thead class="bg-gray-50 border-b border-gray-200">
             <tr>
               <th class="px-4 lg:px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
-                {{ 'overpayments.table.patientName' | transloco }}
+                Patient Name
               </th>
               <th class="px-4 lg:px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider hidden md:table-cell">
-                {{ 'overpayments.table.phone' | transloco }}
+                Phone
               </th>
               <th class="px-4 lg:px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
-                {{ 'overpayments.table.overpayment' | transloco }}
+                Overpayment
               </th>
               <th class="px-4 lg:px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider hidden lg:table-cell">
-                {{ 'overpayments.table.prepaidServices' | transloco }}
+                Prepaid Services
               </th>
               <th class="px-4 lg:px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider hidden lg:table-cell">
-                {{ 'overpayments.table.lastPrepayment' | transloco }}
+                Last Prepayment
               </th>
             </tr>
           </thead>
@@ -170,7 +170,7 @@
                       </span>
                     </span>
                     <span class="text-gray-600">
-                      {{ 'overpayments.table.services' | transloco: { count: overpayment.prepaidServicesCount } }}
+                      {{ overpayment.prepaidServicesCount }} {{ overpayment.prepaidServicesCount === 1 ? 'service' : 'services' }}
                     </span>
                   </div>
                 </td>
