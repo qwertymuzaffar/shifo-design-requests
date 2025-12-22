@@ -187,4 +187,8 @@ export class AnalyticsComponent implements OnInit {
       return this.balancesService.getClientBalances();
     },
   });
+
+  navigateToDebtors(): void {
+    this.router.navigate(['/analytics/debtors']);
+  }
 }

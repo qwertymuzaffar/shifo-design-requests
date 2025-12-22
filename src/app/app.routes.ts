@@ -93,6 +93,18 @@ export const routes: Routes = [
             },
             pathMatch: "full",
          },
+         {
+            path: "analytics/debtors",
+            loadComponent: () => import("@features/analytics/debtors/debtors.component").then((m) => m.DebtorsComponent),
+            canActivate: [ngxPermissionsGuard],
+            data: {
+              permissions: {
+                only: [UserRole.ADMIN],
+                redirectTo: "dashboard"
+              }
+            },
+            pathMatch: "full",
+         },
          { path: "", redirectTo: "patients", pathMatch: "full" },
       ],
    },

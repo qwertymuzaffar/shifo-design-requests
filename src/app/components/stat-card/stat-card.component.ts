@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import {Component, computed, input, InputSignal} from '@angular/core';
+import {Component, computed, input, InputSignal, output} from '@angular/core';
 import { LucideAngularModule, LucideIconData } from 'lucide-angular';
 
 type iconBgColorType = | 'green' | 'gray' | 'blue' | 'sky' | 'amber' | 'emerald' | 'purple' | 'rose'
@@ -23,6 +23,9 @@ export class StatCardComponent {
   tendTextColor = input(this.tendIconColor());
   valueColor = input(this.iconBgColor())
   loading = input(false);
+  clickable = input(false);
+
+  cardClick = output<void>();
 
 
   readonly COLOR_MAP = {

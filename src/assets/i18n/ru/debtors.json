@@ -1,0 +1,18 @@
+{
+  "title": "Долг клиентов",
+  "backToAnalytics": "Назад к аналитике",
+  "totalDebt": "Общий долг",
+  "totalDebtors": "Всего должников: {{count}}",
+  "table": {
+    "patientName": "ФИО клиента",
+    "phone": "Телефон",
+    "debt": "Сумма долга",
+    "unpaidServices": "Неоплаченные услуги",
+    "lastVisit": "Последний визит",
+    "services": "{{count}} услуг"
+  },
+  "emptyState": {
+    "title": "Нет должников",
+    "description": "У вас нет клиентов с задолженностью"
+  }
+}

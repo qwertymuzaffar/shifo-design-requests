@@ -1,0 +1,18 @@
+{
+  "title": "Customer Debt",
+  "backToAnalytics": "Back to Analytics",
+  "totalDebt": "Total Debt",
+  "totalDebtors": "Total debtors: {{count}}",
+  "table": {
+    "patientName": "Patient Name",
+    "phone": "Phone",
+    "debt": "Debt Amount",
+    "unpaidServices": "Unpaid Services",
+    "lastVisit": "Last Visit",
+    "services": "{{count}} services"
+  },
+  "emptyState": {
+    "title": "No Debtors",
+    "description": "You have no patients with outstanding debt"
+  }
+}

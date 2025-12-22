@@ -19,6 +19,8 @@
           [iconBgColor]="'rose'"
           [valueColor]="'rose'"
           [value]="clientBalances.value()?.clientDebt ?? 0"
+          [clickable]="true"
+          (cardClick)="navigateToDebtors()"
         >
         </app-stat-card>
 

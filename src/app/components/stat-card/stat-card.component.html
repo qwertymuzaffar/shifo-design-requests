@@ -1,5 +1,7 @@
 <div
   class="bg-white p-3 md:p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow"
+  [class.cursor-pointer]="clickable()"
+  (click)="clickable() && cardClick.emit()"
 >
   @if (loading()) {
     <ng-container *ngTemplateOutlet="skeleton"></ng-container>
