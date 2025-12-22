@@ -11,17 +11,19 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { DocumentModel } from '@core/models/document.model';
 import { DocumentService } from '@core/services/document.service';
 import { ToastService } from '@core/services/toast.service';
 import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import { FormFieldComponent } from '@shared/controls';
+import { LucideAngularModule, Settings } from 'lucide-angular';
 import { first } from 'rxjs';
+import { ManageDocumentTypesComponent } from '../manage-document-types/manage-document-types.component';
 
 @Component({
   selector: 'app-add-document',
-  imports: [ReactiveFormsModule, FormFieldComponent, TranslocoPipe],
+  imports: [ReactiveFormsModule, FormFieldComponent, TranslocoPipe, LucideAngularModule],
   templateUrl: './add-document.component.html',
   styleUrl: './add-document.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -33,11 +35,14 @@ export class AddDocumentComponent {
   }
 
   private matDialogRef = inject(MatDialogRef);
+  private dialog = inject(MatDialog);
   private documentService = inject(DocumentService);
   private toastService = inject(ToastService);
   readonly data = inject(MAT_DIALOG_DATA);
   selectedFile = signal<File>({} as File);
   isLoading = signal(false);
+
+  protected readonly Settings = Settings;
 
   statusOptions: { [lang: string]: { name: string; status: string }[] } = {
     ru: [
@@ -127,5 +132,16 @@ export class AddDocumentComponent {
     if (file) {
       this.selectedFile.set(file);
     }
+  }
+
+  openManageTypesDialog(): void {
+    const dialogRef = this.dialog.open(ManageDocumentTypesComponent, {
+      width: '600px',
+      disableClose: false,
+    });
+
+    dialogRef.afterClosed().pipe(first()).subscribe(() => {
+      this.documentTypes.reload();
+    });
   }
 }

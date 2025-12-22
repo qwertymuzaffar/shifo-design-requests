@@ -13,6 +13,14 @@ export class DocumentService {
     return this.httpClient.get<DocumentTypeModel[]>(`/documents/types`)
   }
 
+  addDocumentType(name: string): Observable<DocumentTypeModel> {
+    return this.httpClient.post<DocumentTypeModel>(`/documents/types`, { name })
+  }
+
+  deleteDocumentType(id: number): Observable<void> {
+    return this.httpClient.delete<void>(`/documents/types/${id}`)
+  }
+
   addNewDocument(payload: FormData): Observable<DocumentModel> {
     return this.httpClient.post<DocumentModel>("/documents", payload)
   }

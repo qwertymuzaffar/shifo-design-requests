@@ -1,0 +1,45 @@
+{
+  "documentForm": {
+    "title": "Add Document",
+    "loading": "Loading...",
+    "fields": {
+      "name": "Document Name",
+      "type": "Document Type",
+      "selectType": "Select type",
+      "manageTypes": "Manage document types",
+      "description": "Description",
+      "status": "Status",
+      "selectStatus": "Select status",
+      "file": "File",
+      "selectFile": "Select File",
+      "required": "This field is required"
+    },
+    "buttons": {
+      "save": "Save",
+      "saving": "Saving...",
+      "cancel": "Cancel"
+    }
+  },
+  "documentTypes": {
+    "title": "Manage Document Types",
+    "addNew": "Add New Type",
+    "placeholder": "Enter type name",
+    "add": "Add",
+    "existingTypes": "Existing Types",
+    "noTypes": "No document types yet",
+    "close": "Close",
+    "nameRequired": "Name must be at least 2 characters",
+    "error": "Error",
+    "loadError": "Failed to load document types",
+    "addSuccess": "Document type added successfully",
+    "addError": "Failed to add document type",
+    "deleteSuccess": "Document type deleted successfully",
+    "deleteError": "Failed to delete document type"
+  },
+  "d": {
+    "confirm_delete": "Are you sure you want to delete this document?",
+    "deleted": "Deleted",
+    "delete_success": "Document deleted successfully",
+    "delete_error": "Error deleting document"
+  }
+}
