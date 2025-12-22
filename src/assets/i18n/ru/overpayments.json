@@ -1,0 +1,18 @@
+{
+  "title": "Переплаты клиентов",
+  "backToAnalytics": "Назад к аналитике",
+  "totalOverpayment": "Общая переплата",
+  "totalCustomers": "Всего клиентов: {{count}}",
+  "table": {
+    "patientName": "ФИО клиента",
+    "phone": "Телефон",
+    "overpayment": "Сумма предоплаты",
+    "prepaidServices": "Услуги с предоплатой",
+    "lastPrepayment": "Последняя предоплата",
+    "services": "{{count}} услуг"
+  },
+  "emptyState": {
+    "title": "Нет переплат",
+    "description": "У вас нет клиентов с предоплатой"
+  }
+}

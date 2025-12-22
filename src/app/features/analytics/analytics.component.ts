@@ -191,4 +191,8 @@ export class AnalyticsComponent implements OnInit {
   navigateToDebtors(): void {
     this.router.navigate(['/analytics/debtors']);
   }
+
+  navigateToOverpayments(): void {
+    this.router.navigate(['/analytics/overpayments']);
+  }
 }

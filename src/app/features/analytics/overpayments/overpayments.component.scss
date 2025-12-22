@@ -1,0 +1,13 @@
+:host {
+  display: block;
+}
+
+table {
+  min-width: 100%;
+}
+
+tbody tr {
+  &:hover {
+    background-color: rgba(249, 250, 251, 0.8);
+  }
+}

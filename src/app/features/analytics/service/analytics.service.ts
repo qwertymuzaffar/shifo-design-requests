@@ -3,6 +3,7 @@ import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AnalyticsResponse} from "@features/analytics/models/analytics.models";
 import { DebtorsResponse } from '@features/analytics/models/debtor.model';
+import { OverpaymentsResponse } from '@features/analytics/models/overpayment.model';
 
 @Injectable({
   providedIn: 'root',
@@ -19,5 +20,9 @@ export class AnalyticsService {
 
   getDebtors(): Observable<DebtorsResponse> {
     return this.http.get<DebtorsResponse>('/analytics/debtors');
+  }
+
+  getOverpayments(): Observable<OverpaymentsResponse> {
+    return this.http.get<OverpaymentsResponse>('/analytics/overpayments');
   }
 }

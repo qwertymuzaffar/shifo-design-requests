@@ -1,0 +1,18 @@
+{
+  "title": "Customer Overpayments",
+  "backToAnalytics": "Back to Analytics",
+  "totalOverpayment": "Total Overpayment",
+  "totalCustomers": "Total customers: {{count}}",
+  "table": {
+    "patientName": "Patient Name",
+    "phone": "Phone",
+    "overpayment": "Prepayment Amount",
+    "prepaidServices": "Prepaid Services",
+    "lastPrepayment": "Last Prepayment",
+    "services": "{{count}} services"
+  },
+  "emptyState": {
+    "title": "No Overpayments",
+    "description": "You have no customers with prepayments"
+  }
+}

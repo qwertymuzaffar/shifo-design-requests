@@ -33,6 +33,8 @@
           [iconBgColor]="'sky'"
           [valueColor]="'sky'"
           [value]="clientBalances.value()?.clientOverpayments ?? 0"
+          [clickable]="true"
+          (cardClick)="navigateToOverpayments()"
         >
         </app-stat-card>
       </div>
