@@ -1,11 +1,11 @@
 import { Component, inject, signal, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DoctorDetailComponent } from '../../doctor-detail.component';
-import { LucideAngularModule, Calendar, DollarSign, TrendingUp, Users, ChevronLeft, ChevronRight } from 'lucide-angular';
+import { LucideAngularModule, Calendar, DollarSign, TrendingUp, Users, ChevronLeft, ChevronRight, X } from 'lucide-angular';
 import { AppointmentService } from '@core/services/appointment.service';
 import { DateRangePickerComponent } from '@shared/components/date-range-picker/date-range-picker';
 
-type PeriodType = 'today' | 'week' | 'month' | 'year' | 'custom';
+type PeriodType = 'today' | 'week' | 'month' | 'year' | 'all';
 
 @Component({
   selector: 'app-doctor-statistics',
@@ -57,8 +57,12 @@ export class DoctorStatisticsComponent implements OnInit {
   utilizationRate = signal(0);
 
   selectedPeriod = signal<PeriodType>('month');
-  showCalendar = signal(false);
+  isCalendarOpen = signal(false);
   selectedDates = signal<{ from: Date | null; to: Date | null }>({
+    from: this.getMonthStart(),
+    to: this.getMonthEnd()
+  });
+  tempDates = signal<{ from: Date | null; to: Date | null }>({
     from: this.getMonthStart(),
     to: this.getMonthEnd()
   });
@@ -71,6 +75,7 @@ export class DoctorStatisticsComponent implements OnInit {
   protected readonly Users = Users;
   protected readonly ChevronLeft = ChevronLeft;
   protected readonly ChevronRight = ChevronRight;
+  protected readonly X = X;
 
   ngOnInit(): void {
     const doctorId = this.doctor()?.id;
@@ -93,39 +98,68 @@ export class DoctorStatisticsComponent implements OnInit {
     this.selectedPeriod.set(period);
     const today = new Date();
 
+    let newDates: { from: Date | null; to: Date | null };
+
     switch (period) {
       case 'today':
-        this.selectedDates.set({ from: today, to: today });
+        newDates = { from: today, to: today };
         break;
       case 'week':
         const weekStart = new Date(today);
         weekStart.setDate(today.getDate() - today.getDay());
         const weekEnd = new Date(weekStart);
         weekEnd.setDate(weekStart.getDate() + 6);
-        this.selectedDates.set({ from: weekStart, to: weekEnd });
+        newDates = { from: weekStart, to: weekEnd };
         break;
       case 'month':
-        this.selectedDates.set({ from: this.getMonthStart(), to: this.getMonthEnd() });
+        newDates = { from: this.getMonthStart(), to: this.getMonthEnd() };
         break;
       case 'year':
         const yearStart = new Date(today.getFullYear(), 0, 1);
         const yearEnd = new Date(today.getFullYear(), 11, 31);
-        this.selectedDates.set({ from: yearStart, to: yearEnd });
+        newDates = { from: yearStart, to: yearEnd };
         break;
-      case 'custom':
-        this.showCalendar.set(true);
-        return;
+      case 'all':
+        newDates = { from: null, to: null };
+        break;
     }
 
-    this.showCalendar.set(false);
-    this.loadStatistics(this.doctor()?.id!);
+    this.tempDates.set(newDates);
   }
 
   onDatesChange(dates: { from: Date | null; to: Date | null }): void {
-    this.selectedDates.set(dates);
-    if (dates.from && dates.to) {
-      this.loadStatistics(this.doctor()?.id!);
-    }
+    this.tempDates.set(dates);
+  }
+
+  onOpenCalendar(): void {
+    const currentDates = this.selectedDates();
+    this.tempDates.set({
+      from: currentDates.from ? new Date(currentDates.from) : null,
+      to: currentDates.to ? new Date(currentDates.to) : null
+    });
+    this.isCalendarOpen.set(true);
+  }
+
+  onCloseCalendar(): void {
+    this.isCalendarOpen.set(false);
+    const currentDates = this.selectedDates();
+    this.tempDates.set({
+      from: currentDates.from ? new Date(currentDates.from) : null,
+      to: currentDates.to ? new Date(currentDates.to) : null
+    });
+  }
+
+  onApplyDates(): void {
+    this.selectedDates.set(this.tempDates());
+    this.isCalendarOpen.set(false);
+    this.loadStatistics(this.doctor()?.id!);
+  }
+
+  onClearFilter(): void {
+    this.selectedDates.set({ from: null, to: null });
+    this.tempDates.set({ from: null, to: null });
+    this.selectedPeriod.set('all');
+    this.loadStatistics(this.doctor()?.id!);
   }
 
   getFormattedDateRange(): string {
