@@ -48,12 +48,12 @@
               <div class="space-y-1">
                 <div class="flex items-center gap-2 text-sm text-gray-600">
                   <lucide-icon [img]="Calendar" class="w-4 h-4"></lucide-icon>
-                  <span>{{ appointment.appointmentDate | date: 'MMMM d, y' }}</span>
+                  <span>{{ appointment.date | date: 'MMMM d, y' }}</span>
                 </div>
 
                 <div class="flex items-center gap-2 text-sm text-gray-600">
                   <lucide-icon [img]="Clock" class="w-4 h-4"></lucide-icon>
-                  <span>{{ appointment.startTime }} - {{ appointment.endTime }}</span>
+                  <span>{{ appointment.time }} ({{ appointment.duration }} min)</span>
                 </div>
 
                 @if (appointment.symptoms) {
