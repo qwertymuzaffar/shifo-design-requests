@@ -35,7 +35,7 @@ import {
 import { SpecializationService } from '@core/services/specialization.service';
 import { WithQueryParams } from '@core/router/with-query-params';
 import { AppointmentService } from '@core/services/appointment.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { DoctorSkeletonComponent } from '@features/doctor/skeleton/doctor-skeleton.component';
 import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import { NgxPermissionsModule } from 'ngx-permissions';
@@ -107,7 +107,10 @@ export class DoctorComponent extends WithQueryParams implements OnInit {
     procedureId: new FormControl<number>(0, { nonNullable: true }),
   });
 
-  constructor(private transloco: TranslocoService) {
+  constructor(
+    private transloco: TranslocoService,
+    private router2: Router
+  ) {
     super();
   }
 
@@ -411,4 +414,8 @@ export class DoctorComponent extends WithQueryParams implements OnInit {
 
   protected readonly Trash2 = Trash2;
   protected readonly Settings = Settings;
+
+  navigateToDoctor(doctor: Doctor): void {
+    this.router2.navigate(['/doctor', doctor.id]);
+  }
 }

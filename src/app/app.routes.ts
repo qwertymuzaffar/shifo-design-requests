@@ -31,6 +31,18 @@ export const routes: Routes = [
             pathMatch: "full",
          },
          {
+            path: "doctor/:doctor_id",
+            loadChildren: () =>
+               import("./features/doctor-detail/doctor-detail.routes").then((r) => r.DOCTOR_DETAIL_ROUTES),
+            canActivate: [ngxPermissionsGuard],
+            data: {
+              permissions: {
+                only: [UserRole.ADMIN, UserRole.RECEPTIONIST],
+                redirectTo: "dashboard"
+              }
+            },
+         },
+         {
             path: "patients",
             loadComponent: () => import("@features/patients/patients.component").then((m) => m.PatientsComponent),
             canActivate: [ngxPermissionsGuard],

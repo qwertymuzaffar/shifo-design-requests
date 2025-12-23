@@ -25,6 +25,7 @@ export class DoctorCardComponent {
   onEdit = output<Doctor>();
   onDelete = output<number>();
   onCopy = output<void>();
+  onClick = output<Doctor>();
 
   protected readonly Phone = Phone;
   protected readonly Copy = Copy;
@@ -36,5 +37,12 @@ export class DoctorCardComponent {
   protected readonly userRole = UserRole;
 
   constructor(protected readonly breakpointService: BreakpointService) {}
+
+  handleCardClick(event: Event): void {
+    const target = event.target as HTMLElement;
+    if (!target.closest('button') && !target.closest('[cdkCopyToClipboard]')) {
+      this.onClick.emit(this.doctor());
+    }
+  }
 }
 

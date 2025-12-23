@@ -66,6 +66,7 @@
                 (onEdit)="openDialog($event)"
                 (onDelete)="deleteDoctor($event)"
                 (onCopy)="toast()"
+                (onClick)="navigateToDoctor($event)"
               />
             } @empty {
               <div class="flex justify-center items-center flex-col gap-2 py-8">

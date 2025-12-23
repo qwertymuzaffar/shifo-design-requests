@@ -1,0 +1,95 @@
+<div class="space-y-4 sm:space-y-6">
+  @if (doctor()) {
+    <div class="bg-white rounded-xl shadow-lg p-4 sm:p-6">
+      <div class="flex flex-col sm:flex-row items-center sm:items-start gap-4 sm:gap-6">
+        <div class="h-20 w-20 sm:h-24 sm:w-24 bg-gradient-to-r from-emerald-400 to-teal-500 rounded-full flex items-center justify-center flex-shrink-0">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="lucide lucide-user w-10 h-10 sm:w-12 sm:h-12 text-white"
+          >
+            <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+          </svg>
+        </div>
+
+        <div class="flex-1 text-center sm:text-left">
+          <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">
+            Dr. {{ doctor()!.firstName }} {{ doctor()!.lastName }}
+          </h2>
+
+          @if (doctor()!.specialization) {
+            <div class="flex items-center justify-center sm:justify-start gap-2 mb-3">
+              <lucide-icon [img]="Stethoscope" class="w-5 h-5 text-emerald-600"></lucide-icon>
+              <span class="text-lg text-emerald-700 font-medium">
+                {{ doctor()!.specialization.name }}
+              </span>
+            </div>
+          }
+
+          <div class="space-y-2">
+            <div class="flex items-center justify-center sm:justify-start gap-2 text-gray-600">
+              <lucide-icon [img]="Phone" class="w-4 h-4"></lucide-icon>
+              <span class="text-sm sm:text-base">{{ doctor()!.user.phone | phoneFormat }}</span>
+            </div>
+
+            @if (doctor()!.user.email) {
+              <div class="flex items-center justify-center sm:justify-start gap-2 text-gray-600">
+                <lucide-icon [img]="Mail" class="w-4 h-4"></lucide-icon>
+                <span class="text-sm sm:text-base">{{ doctor()!.user.email }}</span>
+              </div>
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-4 sm:p-6 border border-blue-200">
+        <div class="flex items-center gap-3 mb-2">
+          <div class="p-2 bg-blue-200 rounded-lg">
+            <lucide-icon [img]="Wallet" class="w-5 h-5 text-blue-700"></lucide-icon>
+          </div>
+          <h3 class="text-sm font-medium text-blue-900">Consultation Fee</h3>
+        </div>
+        <p class="text-2xl font-bold text-blue-900">{{ doctor()!.consultationFee }} ₸</p>
+      </div>
+
+      <div class="bg-gradient-to-br from-emerald-50 to-emerald-100 rounded-xl p-4 sm:p-6 border border-emerald-200">
+        <div class="flex items-center gap-3 mb-2">
+          <div class="p-2 bg-emerald-200 rounded-lg">
+            <lucide-icon [img]="Clock" class="w-5 h-5 text-emerald-700"></lucide-icon>
+          </div>
+          <h3 class="text-sm font-medium text-emerald-900">Working Hours</h3>
+        </div>
+        <p class="text-xl font-bold text-emerald-900">
+          {{ doctor()!.workingHours.start }} - {{ doctor()!.workingHours.end }}
+        </p>
+      </div>
+
+      <div class="bg-gradient-to-br from-amber-50 to-amber-100 rounded-xl p-4 sm:p-6 border border-amber-200 sm:col-span-2 lg:col-span-1">
+        <div class="flex items-center gap-3 mb-2">
+          <div class="p-2 bg-amber-200 rounded-lg">
+            <lucide-icon [img]="Award" class="w-5 h-5 text-amber-700"></lucide-icon>
+          </div>
+          <h3 class="text-sm font-medium text-amber-900">Experience</h3>
+        </div>
+        <p class="text-2xl font-bold text-amber-900">
+          {{ doctor()!.experience }} {{ doctor()!.experience === 1 ? 'year' : 'years' }}
+        </p>
+      </div>
+    </div>
+
+  } @else {
+    <div class="bg-white rounded-xl shadow-lg p-8 text-center">
+      <p class="text-gray-500">Loading doctor information...</p>
+    </div>
+  }
+</div>

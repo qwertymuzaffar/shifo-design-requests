@@ -1,6 +1,7 @@
 @if (breakpointService.isMobile()) {
   <div
-    class="bg-gradient-to-br from-white to-gray-50 border border-gray-200 rounded-xl p-3 hover:shadow-lg active:shadow-xl transition-all"
+    (click)="handleCardClick($event)"
+    class="bg-gradient-to-br from-white to-gray-50 border border-gray-200 rounded-xl p-3 hover:shadow-lg active:shadow-xl transition-all cursor-pointer"
   >
     <div class="flex items-start gap-3 mb-3">
       <div
@@ -102,6 +103,7 @@
   </div>
 } @else {
   <div
+    (click)="handleCardClick($event)"
     class="w-full space-x-6 flex items-center justify-between p-4 border border-gray-100 rounded-lg hover:shadow-md transition-shadow cursor-pointer"
   >
     <div class="flex items-start space-x-4 flex-1">

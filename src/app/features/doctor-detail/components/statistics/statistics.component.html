@@ -1,0 +1,99 @@
+<div class="space-y-4 sm:space-y-6">
+  @if (isLoading()) {
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      @for (item of [1, 2, 3, 4]; track item) {
+        <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6 animate-pulse">
+          <div class="h-4 bg-gray-200 rounded w-3/4 mb-4"></div>
+          <div class="h-8 bg-gray-200 rounded w-1/2"></div>
+        </div>
+      }
+    </div>
+  } @else {
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-4 sm:p-6 border border-blue-200">
+        <div class="flex items-center gap-3 mb-2">
+          <div class="p-2 bg-blue-200 rounded-lg">
+            <lucide-icon [img]="Calendar" class="w-5 h-5 text-blue-700"></lucide-icon>
+          </div>
+          <h3 class="text-sm font-medium text-blue-900">Total Appointments</h3>
+        </div>
+        <p class="text-3xl font-bold text-blue-900">{{ totalAppointments() }}</p>
+        <p class="text-xs text-blue-700 mt-1">All time</p>
+      </div>
+
+      <div class="bg-gradient-to-br from-emerald-50 to-emerald-100 rounded-xl p-4 sm:p-6 border border-emerald-200">
+        <div class="flex items-center gap-3 mb-2">
+          <div class="p-2 bg-emerald-200 rounded-lg">
+            <lucide-icon [img]="Users" class="w-5 h-5 text-emerald-700"></lucide-icon>
+          </div>
+          <h3 class="text-sm font-medium text-emerald-900">Completed</h3>
+        </div>
+        <p class="text-3xl font-bold text-emerald-900">{{ completedAppointments() }}</p>
+        <p class="text-xs text-emerald-700 mt-1">Successfully finished</p>
+      </div>
+
+      <div class="bg-gradient-to-br from-amber-50 to-amber-100 rounded-xl p-4 sm:p-6 border border-amber-200">
+        <div class="flex items-center gap-3 mb-2">
+          <div class="p-2 bg-amber-200 rounded-lg">
+            <lucide-icon [img]="DollarSign" class="w-5 h-5 text-amber-700"></lucide-icon>
+          </div>
+          <h3 class="text-sm font-medium text-amber-900">Total Revenue</h3>
+        </div>
+        <p class="text-3xl font-bold text-amber-900">{{ totalRevenue() | number: '1.0-0' }} ₸</p>
+        <p class="text-xs text-amber-700 mt-1">All time earnings</p>
+      </div>
+
+      <div class="bg-gradient-to-br from-purple-50 to-purple-100 rounded-xl p-4 sm:p-6 border border-purple-200">
+        <div class="flex items-center gap-3 mb-2">
+          <div class="p-2 bg-purple-200 rounded-lg">
+            <lucide-icon [img]="TrendingUp" class="w-5 h-5 text-purple-700"></lucide-icon>
+          </div>
+          <h3 class="text-sm font-medium text-purple-900">Completion Rate</h3>
+        </div>
+        <p class="text-3xl font-bold text-purple-900">
+          {{ totalAppointments() > 0 ? ((completedAppointments() / totalAppointments()) * 100).toFixed(1) : 0 }}%
+        </p>
+        <p class="text-xs text-purple-700 mt-1">Success rate</p>
+      </div>
+    </div>
+
+    <div class="bg-white rounded-xl shadow-lg p-4 sm:p-6">
+      <h3 class="text-lg font-semibold text-gray-900 mb-4">Performance Overview</h3>
+      <div class="space-y-4">
+        <div>
+          <div class="flex justify-between items-center mb-2">
+            <span class="text-sm font-medium text-gray-700">Appointment Completion</span>
+            <span class="text-sm font-semibold text-gray-900">
+              {{ totalAppointments() > 0 ? ((completedAppointments() / totalAppointments()) * 100).toFixed(0) : 0 }}%
+            </span>
+          </div>
+          <div class="w-full bg-gray-200 rounded-full h-2">
+            <div
+              class="bg-emerald-600 h-2 rounded-full transition-all duration-300"
+              [style.width.%]="totalAppointments() > 0 ? (completedAppointments() / totalAppointments()) * 100 : 0"
+            ></div>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 sm:grid-cols-3 gap-4 pt-4 border-t border-gray-200">
+          <div>
+            <p class="text-xs text-gray-500 mb-1">Average per month</p>
+            <p class="text-lg font-semibold text-gray-900">
+              {{ totalAppointments() > 0 ? (totalAppointments() / 12).toFixed(1) : 0 }}
+            </p>
+          </div>
+          <div>
+            <p class="text-xs text-gray-500 mb-1">Avg. revenue/appointment</p>
+            <p class="text-lg font-semibold text-gray-900">
+              {{ completedAppointments() > 0 ? (totalRevenue() / completedAppointments()).toFixed(0) : 0 }} ₸
+            </p>
+          </div>
+          <div class="col-span-2 sm:col-span-1">
+            <p class="text-xs text-gray-500 mb-1">Active status</p>
+            <p class="text-lg font-semibold text-emerald-600">Active</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  }
+</div>
