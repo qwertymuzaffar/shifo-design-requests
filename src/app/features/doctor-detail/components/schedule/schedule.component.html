@@ -37,27 +37,50 @@
         </div>
       </div>
 
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-4">
-        <div class="bg-gradient-to-br from-sky-50 to-sky-100 rounded-lg p-4">
-          <div class="flex items-center gap-2 mb-1">
-            <lucide-icon [img]="Calendar" class="w-4 h-4 text-sky-600"></lucide-icon>
-            <span class="text-xs font-medium text-sky-900">Working Days</span>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+        <div class="bg-white border border-gray-200 rounded-xl p-5 hover:shadow-md transition-shadow">
+          <div class="flex items-start justify-between mb-3">
+            <div class="p-2 bg-sky-50 rounded-lg">
+              <lucide-icon [img]="Calendar" class="w-5 h-5 text-sky-600"></lucide-icon>
+            </div>
           </div>
-          <p class="text-2xl font-bold text-sky-700">{{ getWorkingDays() }}<span class="text-sm text-sky-600">/7</span></p>
+          <div class="space-y-1">
+            <p class="text-sm font-medium text-gray-600">Working Days</p>
+            <div class="flex items-baseline gap-1">
+              <span class="text-3xl font-bold text-gray-900">{{ getWorkingDays() }}</span>
+              <span class="text-lg font-medium text-gray-400">/7</span>
+            </div>
+          </div>
         </div>
-        <div class="bg-gradient-to-br from-emerald-50 to-emerald-100 rounded-lg p-4">
-          <div class="flex items-center gap-2 mb-1">
-            <lucide-icon [img]="Clock" class="w-4 h-4 text-emerald-600"></lucide-icon>
-            <span class="text-xs font-medium text-emerald-900">Total Hours/Week</span>
+
+        <div class="bg-white border border-gray-200 rounded-xl p-5 hover:shadow-md transition-shadow">
+          <div class="flex items-start justify-between mb-3">
+            <div class="p-2 bg-emerald-50 rounded-lg">
+              <lucide-icon [img]="Clock" class="w-5 h-5 text-emerald-600"></lucide-icon>
+            </div>
           </div>
-          <p class="text-2xl font-bold text-emerald-700">{{ getTotalHours().toFixed(1) }}<span class="text-sm text-emerald-600">h</span></p>
+          <div class="space-y-1">
+            <p class="text-sm font-medium text-gray-600">Total Hours/Week</p>
+            <div class="flex items-baseline gap-1">
+              <span class="text-3xl font-bold text-gray-900">{{ getTotalHours().toFixed(1) }}</span>
+              <span class="text-lg font-medium text-gray-400">h</span>
+            </div>
+          </div>
         </div>
-        <div class="bg-gradient-to-br from-amber-50 to-amber-100 rounded-lg p-4">
-          <div class="flex items-center gap-2 mb-1">
-            <lucide-icon [img]="Coffee" class="w-4 h-4 text-amber-600"></lucide-icon>
-            <span class="text-xs font-medium text-amber-900">Break Time</span>
+
+        <div class="bg-white border border-gray-200 rounded-xl p-5 hover:shadow-md transition-shadow">
+          <div class="flex items-start justify-between mb-3">
+            <div class="p-2 bg-amber-50 rounded-lg">
+              <lucide-icon [img]="Coffee" class="w-5 h-5 text-amber-600"></lucide-icon>
+            </div>
           </div>
-          <p class="text-2xl font-bold text-amber-700">1<span class="text-sm text-amber-600">h</span></p>
+          <div class="space-y-1">
+            <p class="text-sm font-medium text-gray-600">Break Time</p>
+            <div class="flex items-baseline gap-1">
+              <span class="text-3xl font-bold text-gray-900">1</span>
+              <span class="text-lg font-medium text-gray-400">h</span>
+            </div>
+          </div>
         </div>
       </div>
 
