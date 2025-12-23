@@ -6,6 +6,7 @@ import { LucideAngularModule, Clock, Calendar, Coffee, Edit2, Save, X, Plus, Tra
 import { ScheduleService } from '../../services/schedule.service';
 import { DoctorSchedule, WeekSchedule } from '../../models/schedule.model';
 import { ToastService } from '@core/services/toast.service';
+import { ScheduleSkeletonComponent } from './schedule-skeleton.component';
 
 interface DaySchedule {
   dayOfWeek: number;
@@ -22,7 +23,7 @@ interface DaySchedule {
 @Component({
   selector: 'app-doctor-schedule',
   standalone: true,
-  imports: [CommonModule, LucideAngularModule, FormsModule],
+  imports: [CommonModule, LucideAngularModule, FormsModule, ScheduleSkeletonComponent],
   templateUrl: './schedule.component.html',
   styleUrl: './schedule.component.css'
 })
