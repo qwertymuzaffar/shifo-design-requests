@@ -63,6 +63,8 @@ export class DoctorStatisticsComponent implements OnInit {
     to: this.getMonthEnd()
   });
 
+  showAllTimeline = signal(false);
+
   protected readonly Calendar = Calendar;
   protected readonly DollarSign = DollarSign;
   protected readonly TrendingUp = TrendingUp;
@@ -334,5 +336,17 @@ export class DoctorStatisticsComponent implements OnInit {
       const utilization = totalWorkMinutes > 0 ? (totalAppointmentMinutes / totalWorkMinutes) * 100 : 0;
       this.utilizationRate.set(utilization);
     }
+  }
+
+  toggleTimelineView(): void {
+    this.showAllTimeline.set(!this.showAllTimeline());
+  }
+
+  getDisplayedTimeline() {
+    const timeline = this.dailyStats();
+    if (this.showAllTimeline() || timeline.length <= 4) {
+      return timeline;
+    }
+    return timeline.slice(0, 4);
   }
 }
