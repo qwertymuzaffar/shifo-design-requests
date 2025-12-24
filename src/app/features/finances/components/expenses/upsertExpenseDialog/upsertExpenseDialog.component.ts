@@ -35,6 +35,7 @@ import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dial
 import { TransactionType } from '@core/models/transactions.model';
 import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import { QuickAddCategoryDialogComponent } from '../quick-add-category-dialog/quick-add-category-dialog.component';
+import { LucideAngularModule, Settings } from 'lucide-angular';
 
 @Component({
   selector: 'app-upsert-expense-dialog',
@@ -45,7 +46,8 @@ import { QuickAddCategoryDialogComponent } from '../quick-add-category-dialog/qu
     MatAutocompleteModule,
     OptionsScrollDirective,
     MatAutocomplete,
-    TranslocoPipe
+    TranslocoPipe,
+    LucideAngularModule
   ],
   templateUrl: './upsertExpenseDialog.component.html',
   styleUrl: './upsertExpenseDialog.component.scss',
@@ -63,6 +65,7 @@ export class UpsertExpenseDialogComponent implements OnInit {
 
   isLoading = signal(false);
   isEditing = this.data.transaction;
+  Settings = Settings;
 
   form = new FormGroup({
     date: new FormControl(new Date().toISOString().split('T')[0], {nonNullable: true, validators: [Validators.required]}),

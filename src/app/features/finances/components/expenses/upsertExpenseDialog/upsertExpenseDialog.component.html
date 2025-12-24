@@ -50,13 +50,10 @@
       <button
         type="button"
         (click)="openQuickAddCategoryDialog()"
-        class="flex-shrink-0 w-10 h-10 flex items-center justify-center bg-sky-500 text-white rounded-lg hover:bg-sky-600 transition-colors"
+        class="flex items-center justify-center p-2 bg-sky-500 text-white rounded-lg hover:bg-sky-600 transition-colors"
         [title]="'finance.expens.add_category' | transloco"
       >
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <line x1="12" y1="5" x2="12" y2="19"></line>
-          <line x1="5" y1="12" x2="19" y2="12"></line>
-        </svg>
+        <lucide-icon [img]="Settings" [size]="18"></lucide-icon>
       </button>
     </div>
   </app-form-field>
