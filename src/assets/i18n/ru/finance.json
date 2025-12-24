@@ -18,7 +18,16 @@
             "loading": "Загрузка...",
             "paymentMethod": "Способ оплаты",
             "actions": "Действия",
-            "notFound": "Траты не найдены"
+            "notFound": "Траты не найдены",
+            "add_category": "Добавить категорию",
+            "category_name": "Название категории",
+            "category_name_placeholder": "Введите название категории",
+            "category_description": "Описание",
+            "category_description_placeholder": "Введите описание (необязательно)",
+            "create_category": "Создать",
+            "category_created": "Категория успешно создана",
+            "category_create_error": "Не удалось создать категорию",
+            "error": "Ошибка"
         },
         "common": {
             "cancel": "Отмена",

@@ -31,9 +31,10 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { OptionsScrollDirective } from '@shared/directives/option-scroll/options-scroll.directive';
 import { TransactionsService } from '@core/services/transactions.service';
 import { ToastService } from '@core/services/toast.service';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { TransactionType } from '@core/models/transactions.model';
 import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
+import { QuickAddCategoryDialogComponent } from '../quick-add-category-dialog/quick-add-category-dialog.component';
 
 @Component({
   selector: 'app-upsert-expense-dialog',
@@ -58,6 +59,7 @@ export class UpsertExpenseDialogComponent implements OnInit {
   private toastService = inject(ToastService);
   private data = inject(MAT_DIALOG_DATA);
   private matDialogRef = inject(MatDialogRef<UpsertExpenseDialogComponent>);
+  private dialog = inject(MatDialog);
 
   isLoading = signal(false);
   isEditing = this.data.transaction;
@@ -190,5 +192,25 @@ export class UpsertExpenseDialogComponent implements OnInit {
 
   onClose() {
     this.matDialogRef.close()
+  }
+
+  openQuickAddCategoryDialog() {
+    const dialogRef = this.dialog.open(QuickAddCategoryDialogComponent, {
+      width: '500px',
+      maxWidth: '90vw',
+    });
+
+    dialogRef.afterClosed().subscribe((category: TransactionCategoryModel | undefined) => {
+      if (category) {
+        this.categoryPagination.update((curr) => ({
+          ...curr,
+          items: [category, ...curr.items],
+          total: curr.total + 1,
+        }));
+
+        this.categoryControl.patchValue(category.name, { emitEvent: false });
+        this.form.controls['categoryId'].setValue(`${category.id}`);
+      }
+    });
   }
 }

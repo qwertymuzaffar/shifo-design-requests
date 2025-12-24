@@ -18,7 +18,16 @@
             "loading": "Loading...",
             "paymentMethod": "Payment method",
             "actions": "Actions",
-            "notFound": "No expenses found"
+            "notFound": "No expenses found",
+            "add_category": "Add Category",
+            "category_name": "Category Name",
+            "category_name_placeholder": "Enter category name",
+            "category_description": "Description",
+            "category_description_placeholder": "Enter description (optional)",
+            "create_category": "Create",
+            "category_created": "Category created successfully",
+            "category_create_error": "Failed to create category",
+            "error": "Error"
         },
         "common": {
             "cancel": "Cancel",

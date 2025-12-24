@@ -13,4 +13,8 @@ export class TransactionCategoriesService {
   getTransactionCategories(params?: Params): Observable<Pagination<TransactionCategoryModel>> {
     return this.http.get<Pagination<TransactionCategoryModel>>('/transaction-categories', {params})
   }
+
+  createCategory(data: Partial<TransactionCategoryModel>): Observable<TransactionCategoryModel> {
+    return this.http.post<TransactionCategoryModel>('/transaction-categories', data)
+  }
 }
