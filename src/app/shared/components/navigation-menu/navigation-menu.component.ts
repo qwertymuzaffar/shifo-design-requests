@@ -19,6 +19,14 @@ import {
   CreditCard,
   Activity,
   LogOut,
+  FlaskConical,
+  Pill,
+  Package,
+  ClipboardList,
+  Shield,
+  Gift,
+  MessageSquare,
+  UserCog,
   LucideAngularModule,
 } from 'lucide-angular';
 import { rxResource } from '@angular/core/rxjs-interop';
@@ -66,6 +74,14 @@ export class NavigationMenuComponent {
   protected readonly CreditCard = CreditCard;
   protected readonly Activity = Activity;
   protected readonly LogOut = LogOut;
+  protected readonly FlaskConical = FlaskConical;
+  protected readonly Pill = Pill;
+  protected readonly Package = Package;
+  protected readonly ClipboardList = ClipboardList;
+  protected readonly Shield = Shield;
+  protected readonly Gift = Gift;
+  protected readonly MessageSquare = MessageSquare;
+  protected readonly UserCog = UserCog;
 
   setLang(lang: string): void {
     this.translocoService.setActiveLang(lang);

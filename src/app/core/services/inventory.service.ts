@@ -8,7 +8,7 @@ import {
   InventoryStock,
   InventoryTransaction,
   InventoryAlert
-} from '@models/inventory.model';
+} from '@core/models/inventory.model';
 
 @Injectable({
   providedIn: 'root',

@@ -129,6 +129,95 @@ export const routes: Routes = [
             },
             pathMatch: "full",
          },
+         {
+            path: "laboratory",
+            loadComponent: () => import("@features/laboratory/laboratory.component").then((m) => m.LaboratoryComponent),
+            canActivate: [ngxPermissionsGuard],
+            data: {
+              permissions: {
+                only: [UserRole.ADMIN, UserRole.RECEPTIONIST, UserRole.DOCTOR],
+                redirectTo: "dashboard"
+              }
+            },
+            pathMatch: "full",
+         },
+         {
+            path: "prescriptions",
+            loadComponent: () => import("@features/prescriptions/prescriptions.component").then((m) => m.PrescriptionsComponent),
+            canActivate: [ngxPermissionsGuard],
+            data: {
+              permissions: {
+                only: [UserRole.ADMIN, UserRole.DOCTOR],
+                redirectTo: "dashboard"
+              }
+            },
+            pathMatch: "full",
+         },
+         {
+            path: "inventory",
+            loadComponent: () => import("@features/inventory/inventory.component").then((m) => m.InventoryComponent),
+            canActivate: [ngxPermissionsGuard],
+            data: {
+              permissions: {
+                only: [UserRole.ADMIN],
+                redirectTo: "dashboard"
+              }
+            },
+            pathMatch: "full",
+         },
+         {
+            path: "queue",
+            loadComponent: () => import("@features/queue/queue.component").then((m) => m.QueueComponent),
+            canActivate: [ngxPermissionsGuard],
+            data: {
+              permissions: {
+                only: [UserRole.ADMIN, UserRole.RECEPTIONIST],
+                redirectTo: "dashboard"
+              }
+            },
+            pathMatch: "full",
+         },
+         {
+            path: "insurance",
+            loadComponent: () => import("@features/insurance/insurance.component").then((m) => m.InsuranceComponent),
+            canActivate: [ngxPermissionsGuard],
+            data: {
+              permissions: {
+                only: [UserRole.ADMIN, UserRole.RECEPTIONIST],
+                redirectTo: "dashboard"
+              }
+            },
+            pathMatch: "full",
+         },
+         {
+            path: "loyalty",
+            loadComponent: () => import("@features/loyalty/loyalty.component").then((m) => m.LoyaltyComponent),
+            canActivate: [ngxPermissionsGuard],
+            data: {
+              permissions: {
+                only: [UserRole.ADMIN, UserRole.RECEPTIONIST],
+                redirectTo: "dashboard"
+              }
+            },
+            pathMatch: "full",
+         },
+         {
+            path: "chat",
+            loadComponent: () => import("@features/chat/chat.component").then((m) => m.ChatComponent),
+            pathMatch: "full",
+         },
+         {
+            path: "staff",
+            loadComponent: () => import("@features/staff/staff.component").then((m) => m.StaffComponent),
+            canActivate: [ngxPermissionsGuard],
+            data: {
+              permissions: {
+                only: [UserRole.ADMIN],
+                redirectTo: "dashboard"
+              }
+            },
+            pathMatch: "full",
+         },
          { path: "", redirectTo: "patients", pathMatch: "full" },
       ],
    },

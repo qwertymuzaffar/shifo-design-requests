@@ -110,6 +110,156 @@
       {{ 'sidebar.analytics' | transloco }}
     </span>
   </button>
+
+  <button
+    [routerLink]="'/laboratory'"
+    (click)="onItemClick()"
+    class="w-full flex items-center px-3.5 py-3 text-left rounded-lg transition-colors h-12"
+    [ngClass]="{
+      'bg-sky-500 text-white': isActive('/laboratory'),
+      'text-gray-600 hover:bg-gray-100': !isActive('/laboratory'),
+    }"
+  >
+    <lucide-icon [img]="FlaskConical" [size]="20" class="w-5 h-5 "></lucide-icon>
+    <span
+      class="font-medium overflow-hidden whitespace-nowrap ml-3 nav-text"
+      [ngClass]="{ hidden: !isMobile() && collapsed() }"
+    >
+      Laboratory
+    </span>
+  </button>
+
+  <button
+    *ngxPermissionsOnly="[userRole.ADMIN, userRole.DOCTOR]"
+    [routerLink]="'/prescriptions'"
+    (click)="onItemClick()"
+    class="w-full flex items-center px-3.5 py-3 text-left rounded-lg transition-colors h-12"
+    [ngClass]="{
+      'bg-sky-500 text-white': isActive('/prescriptions'),
+      'text-gray-600 hover:bg-gray-100': !isActive('/prescriptions'),
+    }"
+  >
+    <lucide-icon [img]="Pill" [size]="20" class="w-5 h-5 "></lucide-icon>
+    <span
+      class="font-medium overflow-hidden whitespace-nowrap ml-3 nav-text"
+      [ngClass]="{ hidden: !isMobile() && collapsed() }"
+    >
+      Prescriptions
+    </span>
+  </button>
+
+  <button
+    *ngxPermissionsOnly="[userRole.ADMIN]"
+    [routerLink]="'/inventory'"
+    (click)="onItemClick()"
+    class="w-full flex items-center px-3.5 py-3 text-left rounded-lg transition-colors h-12"
+    [ngClass]="{
+      'bg-sky-500 text-white': isActive('/inventory'),
+      'text-gray-600 hover:bg-gray-100': !isActive('/inventory'),
+    }"
+  >
+    <lucide-icon [img]="Package" [size]="20" class="w-5 h-5 "></lucide-icon>
+    <span
+      class="font-medium overflow-hidden whitespace-nowrap ml-3 nav-text"
+      [ngClass]="{ hidden: !isMobile() && collapsed() }"
+    >
+      Inventory
+    </span>
+  </button>
+
+  <button
+    *ngxPermissionsOnly="[userRole.ADMIN, userRole.RECEPTIONIST]"
+    [routerLink]="'/queue'"
+    (click)="onItemClick()"
+    class="w-full flex items-center px-3.5 py-3 text-left rounded-lg transition-colors h-12"
+    [ngClass]="{
+      'bg-sky-500 text-white': isActive('/queue'),
+      'text-gray-600 hover:bg-gray-100': !isActive('/queue'),
+    }"
+  >
+    <lucide-icon [img]="ClipboardList" [size]="20" class="w-5 h-5 "></lucide-icon>
+    <span
+      class="font-medium overflow-hidden whitespace-nowrap ml-3 nav-text"
+      [ngClass]="{ hidden: !isMobile() && collapsed() }"
+    >
+      Queue
+    </span>
+  </button>
+
+  <button
+    *ngxPermissionsOnly="[userRole.ADMIN, userRole.RECEPTIONIST]"
+    [routerLink]="'/insurance'"
+    (click)="onItemClick()"
+    class="w-full flex items-center px-3.5 py-3 text-left rounded-lg transition-colors h-12"
+    [ngClass]="{
+      'bg-sky-500 text-white': isActive('/insurance'),
+      'text-gray-600 hover:bg-gray-100': !isActive('/insurance'),
+    }"
+  >
+    <lucide-icon [img]="Shield" [size]="20" class="w-5 h-5 "></lucide-icon>
+    <span
+      class="font-medium overflow-hidden whitespace-nowrap ml-3 nav-text"
+      [ngClass]="{ hidden: !isMobile() && collapsed() }"
+    >
+      Insurance
+    </span>
+  </button>
+
+  <button
+    *ngxPermissionsOnly="[userRole.ADMIN, userRole.RECEPTIONIST]"
+    [routerLink]="'/loyalty'"
+    (click)="onItemClick()"
+    class="w-full flex items-center px-3.5 py-3 text-left rounded-lg transition-colors h-12"
+    [ngClass]="{
+      'bg-sky-500 text-white': isActive('/loyalty'),
+      'text-gray-600 hover:bg-gray-100': !isActive('/loyalty'),
+    }"
+  >
+    <lucide-icon [img]="Gift" [size]="20" class="w-5 h-5 "></lucide-icon>
+    <span
+      class="font-medium overflow-hidden whitespace-nowrap ml-3 nav-text"
+      [ngClass]="{ hidden: !isMobile() && collapsed() }"
+    >
+      Loyalty
+    </span>
+  </button>
+
+  <button
+    [routerLink]="'/chat'"
+    (click)="onItemClick()"
+    class="w-full flex items-center px-3.5 py-3 text-left rounded-lg transition-colors h-12"
+    [ngClass]="{
+      'bg-sky-500 text-white': isActive('/chat'),
+      'text-gray-600 hover:bg-gray-100': !isActive('/chat'),
+    }"
+  >
+    <lucide-icon [img]="MessageSquare" [size]="20" class="w-5 h-5 "></lucide-icon>
+    <span
+      class="font-medium overflow-hidden whitespace-nowrap ml-3 nav-text"
+      [ngClass]="{ hidden: !isMobile() && collapsed() }"
+    >
+      Chat
+    </span>
+  </button>
+
+  <button
+    *ngxPermissionsOnly="[userRole.ADMIN]"
+    [routerLink]="'/staff'"
+    (click)="onItemClick()"
+    class="w-full flex items-center px-3.5 py-3 text-left rounded-lg transition-colors h-12"
+    [ngClass]="{
+      'bg-sky-500 text-white': isActive('/staff'),
+      'text-gray-600 hover:bg-gray-100': !isActive('/staff'),
+    }"
+  >
+    <lucide-icon [img]="UserCog" [size]="20" class="w-5 h-5 "></lucide-icon>
+    <span
+      class="font-medium overflow-hidden whitespace-nowrap ml-3 nav-text"
+      [ngClass]="{ hidden: !isMobile() && collapsed() }"
+    >
+      Staff
+    </span>
+  </button>
 </nav>
 
 <div class="p-4 border-t border-gray-200 space-y-4">

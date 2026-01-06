@@ -1,0 +1,102 @@
+<div class="p-6 max-w-7xl mx-auto">
+  <div class="mb-6">
+    <div class="flex items-center justify-between mb-2">
+      <div class="flex items-center gap-3">
+        <lucide-icon [img]="ClipboardList" [size]="32" class="text-sky-500"></lucide-icon>
+        <h1 class="text-3xl font-bold text-gray-800">Patient Queue</h1>
+      </div>
+      <button class="bg-sky-500 hover:bg-sky-600 text-white px-4 py-2 rounded-lg flex items-center gap-2 transition-colors">
+        <lucide-icon [img]="UserPlus" [size]="20"></lucide-icon>
+        <span>Check In Patient</span>
+      </button>
+    </div>
+    <p class="text-gray-600">Real-time patient queue management</p>
+  </div>
+
+  @if (isLoading()) {
+    <div class="flex items-center justify-center py-12">
+      <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-sky-500"></div>
+    </div>
+  } @else if (queueEntries().length === 0) {
+    <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-12 text-center">
+      <lucide-icon [img]="ClipboardList" [size]="48" class="text-gray-300 mx-auto mb-4"></lucide-icon>
+      <h3 class="text-lg font-semibold text-gray-700 mb-2">Queue is empty</h3>
+      <p class="text-gray-500 mb-4">No patients waiting at the moment</p>
+      <button class="bg-sky-500 hover:bg-sky-600 text-white px-6 py-2 rounded-lg inline-flex items-center gap-2 transition-colors">
+        <lucide-icon [img]="UserPlus" [size]="20"></lucide-icon>
+        <span>Check In Patient</span>
+      </button>
+    </div>
+  } @else {
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      @for (entry of queueEntries(); track entry.id) {
+        <div [class]="'bg-white rounded-lg shadow-sm border-2 p-6 hover:shadow-md transition-shadow ' + getStatusColor(entry.status)">
+          <div class="flex items-start justify-between mb-4">
+            <div class="flex items-center gap-3">
+              <div class="text-3xl font-bold text-sky-600">{{ entry.queue_number }}</div>
+              <div [class]="'text-2xl font-bold ' + getPriorityColor(entry.priority)">!</div>
+            </div>
+            <span [class]="'px-3 py-1 rounded-full text-xs font-medium ' + getStatusColor(entry.status)">
+              {{ entry.status | titlecase }}
+            </span>
+          </div>
+
+          <div class="space-y-2 mb-4">
+            <div>
+              <div class="text-sm text-gray-600">Patient</div>
+              <div class="font-semibold text-gray-800">{{ entry.patient?.full_name || 'Unknown' }}</div>
+            </div>
+
+            @if (entry.doctor) {
+              <div>
+                <div class="text-sm text-gray-600">Doctor</div>
+                <div class="font-medium text-gray-800">
+                  {{ entry.doctor.firstName }} {{ entry.doctor.lastName }}
+                </div>
+              </div>
+            }
+
+            <div>
+              <div class="text-sm text-gray-600">Check-in Time</div>
+              <div class="font-medium text-gray-800">{{ entry.check_in_time | date:'shortTime' }}</div>
+            </div>
+
+            @if (entry.estimated_wait_minutes) {
+              <div>
+                <div class="text-sm text-gray-600">Est. Wait</div>
+                <div class="font-medium text-gray-800">{{ entry.estimated_wait_minutes }} min</div>
+              </div>
+            }
+          </div>
+
+          @if (entry.status === 'waiting') {
+            <div class="flex gap-2">
+              <button class="flex-1 bg-sky-500 hover:bg-sky-600 text-white px-4 py-2 rounded-lg flex items-center justify-center gap-2 transition-colors text-sm">
+                <lucide-icon [img]="Play" [size]="16"></lucide-icon>
+                <span>Call Patient</span>
+              </button>
+            </div>
+          }
+
+          @if (entry.status === 'in_progress') {
+            <div class="flex gap-2">
+              <button class="flex-1 bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg flex items-center justify-center gap-2 transition-colors text-sm">
+                <lucide-icon [img]="Check" [size]="16"></lucide-icon>
+                <span>Complete</span>
+              </button>
+              <button class="bg-red-100 hover:bg-red-200 text-red-700 px-4 py-2 rounded-lg transition-colors">
+                <lucide-icon [img]="X" [size]="16"></lucide-icon>
+              </button>
+            </div>
+          }
+
+          @if (entry.notes) {
+            <div class="mt-4 pt-4 border-t border-gray-200">
+              <p class="text-sm text-gray-600">{{ entry.notes }}</p>
+            </div>
+          }
+        </div>
+      }
+    </div>
+  }
+</div>

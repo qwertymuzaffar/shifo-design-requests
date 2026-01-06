@@ -1,6 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import {
   LabTestType,
   LabOrder,
@@ -8,7 +9,7 @@ import {
   LabResult,
   CreateLabOrderRequest,
   UpdateLabResultRequest
-} from '@models/laboratory.model';
+} from '@core/models/laboratory.model';
 
 @Injectable({
   providedIn: 'root',
@@ -63,7 +64,7 @@ export class LaboratoryService {
       }).subscribe({
         next: (orders) => {
           const createdOrder = orders[0];
-          const items = request.test_type_ids.map(testTypeId => ({
+          const items = request.test_type_ids.map((testTypeId: number) => ({
             order_id: createdOrder.id,
             test_type_id: testTypeId,
             status: 'pending'

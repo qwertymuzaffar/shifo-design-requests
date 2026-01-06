@@ -1,8 +1,8 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { QueueEntry, QueueDisplaySettings } from '@models/queue.model';
+import { map, switchMap } from 'rxjs/operators';
+import { QueueEntry, QueueDisplaySettings } from '@core/models/queue.model';
 
 @Injectable({
   providedIn: 'root',
@@ -79,5 +79,3 @@ export class QueueService {
     return this.httpClient.get<QueueDisplaySettings[]>(`${this.baseUrl}/queue_display_settings`, { params });
   }
 }
-
-import { switchMap } from 'rxjs/operators';

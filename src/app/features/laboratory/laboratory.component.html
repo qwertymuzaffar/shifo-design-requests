@@ -1,0 +1,118 @@
+<div class="p-6 max-w-7xl mx-auto">
+  <div class="mb-6">
+    <div class="flex items-center justify-between mb-2">
+      <div class="flex items-center gap-3">
+        <lucide-icon [img]="FlaskConical" [size]="32" class="text-sky-500"></lucide-icon>
+        <h1 class="text-3xl font-bold text-gray-800">Laboratory Tests</h1>
+      </div>
+      <button class="bg-sky-500 hover:bg-sky-600 text-white px-4 py-2 rounded-lg flex items-center gap-2 transition-colors">
+        <lucide-icon [img]="Plus" [size]="20"></lucide-icon>
+        <span>New Order</span>
+      </button>
+    </div>
+    <p class="text-gray-600">Manage laboratory test orders and results</p>
+  </div>
+
+  <div class="bg-white rounded-lg shadow-sm border border-gray-200 mb-6 p-4">
+    <div class="flex gap-4 items-center">
+      <div class="flex-1 relative">
+        <lucide-icon [img]="Search" [size]="20" class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"></lucide-icon>
+        <input
+          type="text"
+          [(ngModel)]="searchQuery"
+          placeholder="Search by order number or patient name..."
+          class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-transparent"
+        />
+      </div>
+
+      <select
+        [(ngModel)]="selectedStatus"
+        class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-transparent"
+      >
+        <option value="all">All Status</option>
+        <option value="pending">Pending</option>
+        <option value="collected">Collected</option>
+        <option value="processing">Processing</option>
+        <option value="completed">Completed</option>
+      </select>
+
+      <button class="p-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors">
+        <lucide-icon [img]="Filter" [size]="20" class="text-gray-600"></lucide-icon>
+      </button>
+    </div>
+  </div>
+
+  @if (isLoading()) {
+    <div class="flex items-center justify-center py-12">
+      <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-sky-500"></div>
+    </div>
+  } @else if (orders().length === 0) {
+    <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-12 text-center">
+      <lucide-icon [img]="FlaskConical" [size]="48" class="text-gray-300 mx-auto mb-4"></lucide-icon>
+      <h3 class="text-lg font-semibold text-gray-700 mb-2">No laboratory orders yet</h3>
+      <p class="text-gray-500 mb-4">Create your first laboratory test order to get started</p>
+      <button class="bg-sky-500 hover:bg-sky-600 text-white px-6 py-2 rounded-lg inline-flex items-center gap-2 transition-colors">
+        <lucide-icon [img]="Plus" [size]="20"></lucide-icon>
+        <span>Create Order</span>
+      </button>
+    </div>
+  } @else {
+    <div class="grid gap-4">
+      @for (order of orders(); track order.id) {
+        <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6 hover:shadow-md transition-shadow">
+          <div class="flex items-start justify-between mb-4">
+            <div class="flex-1">
+              <div class="flex items-center gap-3 mb-2">
+                <h3 class="text-lg font-semibold text-gray-800">{{ order.order_number }}</h3>
+                <span [class]="'px-3 py-1 rounded-full text-xs font-medium ' + getStatusColor(order.status)">
+                  {{ getStatusLabel(order.status) }}
+                </span>
+              </div>
+              <div class="flex items-center gap-6 text-sm text-gray-600">
+                <div>
+                  <span class="font-medium">Patient:</span>
+                  {{ order.patient?.full_name || 'Unknown' }}
+                </div>
+                <div>
+                  <span class="font-medium">Doctor:</span>
+                  {{ order.doctor?.firstName || '' }} {{ order.doctor?.lastName || 'Unknown' }}
+                </div>
+                <div>
+                  <span class="font-medium">Date:</span>
+                  {{ order.ordered_at | date:'short' }}
+                </div>
+              </div>
+            </div>
+            <button class="text-sky-500 hover:text-sky-600 p-2 rounded-lg hover:bg-sky-50 transition-colors">
+              View Details
+            </button>
+          </div>
+
+          @if (order.items && order.items.length > 0) {
+            <div class="border-t border-gray-200 pt-4">
+              <h4 class="text-sm font-medium text-gray-700 mb-3">Tests ({{ order.items.length }})</h4>
+              <div class="grid grid-cols-2 gap-3">
+                @for (item of order.items; track item.id) {
+                  <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                    <span class="text-sm text-gray-700">{{ item.test_type?.name }}</span>
+                    <span [class]="'px-2 py-1 rounded text-xs font-medium ' + getStatusColor(item.status)">
+                      {{ getStatusLabel(item.status) }}
+                    </span>
+                  </div>
+                }
+              </div>
+            </div>
+          }
+
+          @if (order.notes) {
+            <div class="border-t border-gray-200 pt-4 mt-4">
+              <p class="text-sm text-gray-600">
+                <span class="font-medium">Notes:</span> {{ order.notes }}
+              </p>
+            </div>
+          }
+        </div>
+      }
+    </div>
+  }
+</div>

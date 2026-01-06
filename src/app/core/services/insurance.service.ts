@@ -7,7 +7,7 @@ import {
   InsurancePlan,
   PatientInsurance,
   InsuranceClaim
-} from '@models/insurance.model';
+} from '@core/models/insurance.model';
 
 @Injectable({
   providedIn: 'root',

@@ -7,7 +7,7 @@ import {
   Prescription,
   PrescriptionItem,
   CreatePrescriptionRequest
-} from '@models/prescription.model';
+} from '@core/models/prescription.model';
 
 @Injectable({
   providedIn: 'root',
@@ -66,7 +66,7 @@ export class PrescriptionService {
       }).subscribe({
         next: (prescriptions) => {
           const createdPrescription = prescriptions[0];
-          const items = request.items.map(item => ({
+          const items = request.items.map((item: any) => ({
             prescription_id: createdPrescription.id,
             ...item
           }));
