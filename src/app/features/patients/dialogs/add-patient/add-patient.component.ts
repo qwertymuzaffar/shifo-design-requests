@@ -71,6 +71,7 @@ export class AddPatientComponent implements OnInit {
     emergencyContact: new FormControl<string>(''),
     allergies: new FormControl<string>('', [noDuplicateCommaValidator()]),
     medicalHistory: new FormControl<string>(''),
+    smsNotificationsEnabled: new FormControl<boolean>(false),
   });
 
   onDateChange(event: Event) {

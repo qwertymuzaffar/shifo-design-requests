@@ -21,6 +21,7 @@ export interface Doctor {
   username: string,
   email: string,
   password: string,
+  smsNotificationsEnabled?: boolean,
   user: {
         id: number,
         username: string,
@@ -32,7 +33,8 @@ export interface Doctor {
         isActive: boolean,
         createdAt: string,
         updatedAt: string,
-        fullName: string
+        fullName: string,
+        smsNotificationsEnabled?: boolean
   }
 }
 

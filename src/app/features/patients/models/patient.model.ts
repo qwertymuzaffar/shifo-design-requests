@@ -10,4 +10,5 @@ export interface PatientModel {
   createdAt?: string
   updatedAt?: string
   phoneInsurance?: string
+  smsNotificationsEnabled?: boolean
 }

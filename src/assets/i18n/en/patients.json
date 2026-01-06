@@ -72,6 +72,7 @@
     "allergies": "Allergies",
     "medicalHistory": "Medical History",
     "phoneInsurance": "Insurance Phone",
+    "sms_notifications": "Enable SMS notifications",
     "save": "Save",
     "add_patient": "Add Patient",
     "cancel": "Cancel",

@@ -96,6 +96,7 @@ export class AddDoctorComponent implements OnInit {
       startTime: new FormControl('08:00', Validators.required),
       endTime: new FormControl('17:00', Validators.required),
       workDays: new FormControl<number[]>([1, 2, 3, 4, 5]),
+      smsNotificationsEnabled: new FormControl<boolean>(false),
     },
   );
 
@@ -135,6 +136,7 @@ export class AddDoctorComponent implements OnInit {
         startTime: this.doctor.workingHours?.start || '09:00',
         endTime: this.doctor.workingHours?.end || '17:00',
         workDays: this.doctor.workingHours?.workingDays || [1, 2, 3, 4, 5],
+        smsNotificationsEnabled: this.doctor.user.smsNotificationsEnabled || false,
       });
     }
 
@@ -165,6 +167,7 @@ export class AddDoctorComponent implements OnInit {
       username: raw.username,
       password: raw.password,
       email: raw.email || '',
+      smsNotificationsEnabled: raw.smsNotificationsEnabled ?? false,
       workingHours: {
         start: raw.startTime ?? '',
         end: raw.endTime ?? '',

@@ -110,6 +110,17 @@
       </div>
     </div>
 
+    @if (!isViewMode) {
+      <div>
+        <label class="flex items-center space-x-2 cursor-pointer">
+          <input type="checkbox"
+                 formControlName="smsNotificationsEnabled"
+                 class="rounded border-gray-300 text-sky-600 focus:ring-sky-500" />
+          <span class="text-sm text-gray-700">{{ 'doctor-form.sms_notifications' | transloco }}</span>
+        </label>
+      </div>
+    }
+
     <div class="flex space-x-3">
       @if (!isViewMode) {
         <button class="bg-sky-500 text-white px-6 py-2 rounded-lg hover:bg-sky-600 transition-colors">

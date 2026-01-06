@@ -48,6 +48,17 @@
     </app-form-field>
   }
 
+  @if (!isViewMode) {
+    <div class="md:col-span-2">
+      <label class="flex items-center space-x-2 cursor-pointer">
+        <input type="checkbox"
+               formControlName="smsNotificationsEnabled"
+               class="rounded border-gray-300 text-sky-600 focus:ring-sky-500" />
+        <span class="text-sm text-gray-700">{{ 'patientForm.sms_notifications' | transloco }}</span>
+      </label>
+    </div>
+  }
+
   <div class="md:col-span-2 flex flex-col sm:flex-row justify-end gap-2 sm:gap-3 sm:space-x-3">
     @if (!isViewMode) {
       <button [disabled]="isLoading()" type="submit"

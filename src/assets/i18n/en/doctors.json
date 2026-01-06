@@ -83,6 +83,7 @@
     "start_time": "Start Time",
     "end_time": "End Time",
     "work_days": "Working Days",
+    "sms_notifications": "Enable SMS notifications",
     "save": "Save",
     "saving": "Saving...",
     "cancel": "Cancel",

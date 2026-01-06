@@ -72,6 +72,7 @@
     "allergies": "Противопоказания",
     "medicalHistory": "Медицинская история",
     "phoneInsurance": "Телефон страховой",
+    "sms_notifications": "Включить SMS-уведомления",
     "save": "Сохранить",
     "add_patient": "Добавить пациента",
     "cancel": "Отмена",
