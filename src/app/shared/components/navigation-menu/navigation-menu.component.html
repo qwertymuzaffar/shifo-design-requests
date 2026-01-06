@@ -260,6 +260,24 @@
       Staff
     </span>
   </button>
+
+  <button
+    [routerLink]="'/patient-portal'"
+    (click)="onItemClick()"
+    class="w-full flex items-center px-3.5 py-3 text-left rounded-lg transition-colors h-12"
+    [ngClass]="{
+      'bg-sky-500 text-white': isActive('/patient-portal'),
+      'text-gray-600 hover:bg-gray-100': !isActive('/patient-portal'),
+    }"
+  >
+    <lucide-icon [img]="User" [size]="20" class="w-5 h-5 "></lucide-icon>
+    <span
+      class="font-medium overflow-hidden whitespace-nowrap ml-3 nav-text"
+      [ngClass]="{ hidden: !isMobile() && collapsed() }"
+    >
+      Patient Portal
+    </span>
+  </button>
 </nav>
 
 <div class="p-4 border-t border-gray-200 space-y-4">

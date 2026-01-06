@@ -1,0 +1,57 @@
+<div class="min-h-screen bg-gray-50">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="mb-8">
+      <h1 class="text-3xl font-bold text-gray-900">Patient Portal</h1>
+      <p class="mt-2 text-gray-600">Manage your appointments, documents, and medical history</p>
+    </div>
+
+    <div class="bg-white rounded-lg shadow">
+      <div class="border-b border-gray-200">
+        <nav class="flex -mb-px">
+          <button
+            (click)="setActiveTab('booking')"
+            [class.border-blue-500]="activeTab() === 'booking'"
+            [class.text-blue-600]="activeTab() === 'booking'"
+            [class.border-transparent]="activeTab() !== 'booking'"
+            [class.text-gray-500]="activeTab() !== 'booking'"
+            class="py-4 px-6 border-b-2 font-medium text-sm hover:text-blue-600 hover:border-blue-300 transition-colors"
+          >
+            Book Appointment
+          </button>
+          <button
+            (click)="setActiveTab('history')"
+            [class.border-blue-500]="activeTab() === 'history'"
+            [class.text-blue-600]="activeTab() === 'history'"
+            [class.border-transparent]="activeTab() !== 'history'"
+            [class.text-gray-500]="activeTab() !== 'history'"
+            class="py-4 px-6 border-b-2 font-medium text-sm hover:text-blue-600 hover:border-blue-300 transition-colors"
+          >
+            My Appointments
+          </button>
+          <button
+            (click)="setActiveTab('documents')"
+            [class.border-blue-500]="activeTab() === 'documents'"
+            [class.text-blue-600]="activeTab() === 'documents'"
+            [class.border-transparent]="activeTab() !== 'documents'"
+            [class.text-gray-500]="activeTab() !== 'documents'"
+            class="py-4 px-6 border-b-2 font-medium text-sm hover:text-blue-600 hover:border-blue-300 transition-colors"
+          >
+            My Documents
+          </button>
+        </nav>
+      </div>
+
+      <div class="p-6">
+        @if (activeTab() === 'booking') {
+          <app-online-booking />
+        }
+        @if (activeTab() === 'history') {
+          <app-appointment-history />
+        }
+        @if (activeTab() === 'documents') {
+          <app-my-documents />
+        }
+      </div>
+    </div>
+  </div>
+</div>

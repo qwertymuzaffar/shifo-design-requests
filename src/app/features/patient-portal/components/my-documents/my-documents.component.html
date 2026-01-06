@@ -1,0 +1,107 @@
+<div>
+  <div class="mb-6">
+    <h2 class="text-2xl font-bold text-gray-900">My Documents</h2>
+    <p class="mt-1 text-gray-600">Access your medical records and documents</p>
+  </div>
+
+  <div class="mb-6">
+    <div class="flex flex-wrap gap-2">
+      @for (type of documentTypes; track type) {
+        <button
+          (click)="setFilterType(type)"
+          [class.bg-blue-600]="filterType() === type"
+          [class.text-white]="filterType() === type"
+          [class.bg-white]="filterType() !== type"
+          [class.text-gray-700]="filterType() !== type"
+          [class.border-gray-300]="filterType() !== type"
+          class="px-4 py-2 rounded-lg border transition-colors hover:bg-blue-50 capitalize"
+        >
+          {{ type }}
+        </button>
+      }
+    </div>
+  </div>
+
+  @if (loading()) {
+    <div class="text-center py-12">
+      <div class="inline-block animate-spin rounded-full h-8 w-8 border-4 border-blue-600 border-t-transparent"></div>
+      <p class="mt-2 text-gray-600">Loading documents...</p>
+    </div>
+  } @else if (filteredDocuments.length === 0) {
+    <div class="text-center py-12 bg-gray-50 rounded-lg">
+      <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+      </svg>
+      <h3 class="mt-2 text-sm font-medium text-gray-900">No documents found</h3>
+      <p class="mt-1 text-sm text-gray-500">You don't have any documents in this category.</p>
+    </div>
+  } @else {
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      @for (document of filteredDocuments; track document.id) {
+        <div class="bg-white border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow">
+          <div class="flex items-start">
+            <div class="flex-shrink-0">
+              <svg class="h-10 w-10 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" [attr.d]="getFileIcon(document.file_name)" />
+              </svg>
+            </div>
+            <div class="ml-3 flex-1">
+              <h3 class="text-sm font-medium text-gray-900 line-clamp-2">
+                {{ document.file_name }}
+              </h3>
+              <p class="mt-1 text-xs text-gray-500">
+                {{ document.document_type?.name }}
+              </p>
+              <p class="mt-1 text-xs text-gray-400">
+                Uploaded: {{ formatDate(document.created_at) }}
+              </p>
+              @if (document.description) {
+                <p class="mt-2 text-xs text-gray-600 line-clamp-2">
+                  {{ document.description }}
+                </p>
+              }
+            </div>
+          </div>
+
+          <div class="mt-4 flex justify-end space-x-2 pt-3 border-t">
+            <button
+              (click)="viewDocument(document)"
+              class="inline-flex items-center px-3 py-1.5 text-xs font-medium text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+            >
+              <svg class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+              </svg>
+              View
+            </button>
+            <button
+              (click)="downloadDocument(document)"
+              class="inline-flex items-center px-3 py-1.5 text-xs font-medium text-gray-600 hover:bg-gray-50 rounded-lg transition-colors"
+            >
+              <svg class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+              </svg>
+              Download
+            </button>
+          </div>
+        </div>
+      }
+    </div>
+  }
+
+  <div class="mt-8 bg-blue-50 border border-blue-200 rounded-lg p-4">
+    <div class="flex">
+      <div class="flex-shrink-0">
+        <svg class="h-5 w-5 text-blue-400" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
+        </svg>
+      </div>
+      <div class="ml-3">
+        <h3 class="text-sm font-medium text-blue-800">Document Access</h3>
+        <p class="mt-1 text-sm text-blue-700">
+          Your documents are securely stored and encrypted. If you need to request additional documents or have questions, please contact our support team.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

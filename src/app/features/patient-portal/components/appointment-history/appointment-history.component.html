@@ -1,0 +1,131 @@
+<div>
+  <div class="mb-6">
+    <h2 class="text-2xl font-bold text-gray-900">My Appointments</h2>
+    <p class="mt-1 text-gray-600">View and manage your appointment history</p>
+  </div>
+
+  <div class="mb-6">
+    <div class="flex flex-wrap gap-2">
+      <button
+        (click)="setFilter('all')"
+        [class.bg-blue-600]="filter() === 'all'"
+        [class.text-white]="filter() === 'all'"
+        [class.bg-white]="filter() !== 'all'"
+        [class.text-gray-700]="filter() !== 'all'"
+        [class.border-gray-300]="filter() !== 'all'"
+        class="px-4 py-2 rounded-lg border transition-colors hover:bg-blue-50"
+      >
+        All
+      </button>
+      <button
+        (click)="setFilter('upcoming')"
+        [class.bg-blue-600]="filter() === 'upcoming'"
+        [class.text-white]="filter() === 'upcoming'"
+        [class.bg-white]="filter() !== 'upcoming'"
+        [class.text-gray-700]="filter() !== 'upcoming'"
+        [class.border-gray-300]="filter() !== 'upcoming'"
+        class="px-4 py-2 rounded-lg border transition-colors hover:bg-blue-50"
+      >
+        Upcoming
+      </button>
+      <button
+        (click)="setFilter('past')"
+        [class.bg-blue-600]="filter() === 'past'"
+        [class.text-white]="filter() === 'past'"
+        [class.bg-white]="filter() !== 'past'"
+        [class.text-gray-700]="filter() !== 'past'"
+        [class.border-gray-300]="filter() !== 'past'"
+        class="px-4 py-2 rounded-lg border transition-colors hover:bg-blue-50"
+      >
+        Past
+      </button>
+      <button
+        (click)="setFilter('cancelled')"
+        [class.bg-blue-600]="filter() === 'cancelled'"
+        [class.text-white]="filter() === 'cancelled'"
+        [class.bg-white]="filter() !== 'cancelled'"
+        [class.text-gray-700]="filter() !== 'cancelled'"
+        [class.border-gray-300]="filter() !== 'cancelled'"
+        class="px-4 py-2 rounded-lg border transition-colors hover:bg-blue-50"
+      >
+        Cancelled
+      </button>
+    </div>
+  </div>
+
+  @if (loading()) {
+    <div class="text-center py-12">
+      <div class="inline-block animate-spin rounded-full h-8 w-8 border-4 border-blue-600 border-t-transparent"></div>
+      <p class="mt-2 text-gray-600">Loading appointments...</p>
+    </div>
+  } @else if (filteredAppointments.length === 0) {
+    <div class="text-center py-12 bg-gray-50 rounded-lg">
+      <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+      </svg>
+      <h3 class="mt-2 text-sm font-medium text-gray-900">No appointments found</h3>
+      <p class="mt-1 text-sm text-gray-500">You don't have any appointments in this category.</p>
+    </div>
+  } @else {
+    <div class="space-y-4">
+      @for (appointment of filteredAppointments; track appointment.id) {
+        <div class="bg-white border border-gray-200 rounded-lg p-6 hover:shadow-md transition-shadow">
+          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4">
+            <div>
+              <h3 class="text-lg font-semibold text-gray-900">
+                Dr. {{ appointment.doctor?.firstName }} {{ appointment.doctor?.lastName }}
+              </h3>
+              <p class="text-sm text-gray-600">{{ appointment.doctor?.specialization?.name }}</p>
+            </div>
+            <span
+              [class]="getStatusClass(appointment.status)"
+              class="mt-2 sm:mt-0 inline-block px-3 py-1 rounded-full text-xs font-medium"
+            >
+              {{ getStatusLabel(appointment.status) }}
+            </span>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+            <div class="flex items-center text-sm text-gray-600">
+              <svg class="h-5 w-5 mr-2 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              </svg>
+              {{ formatDate(appointment.date) }}
+            </div>
+            <div class="flex items-center text-sm text-gray-600">
+              <svg class="h-5 w-5 mr-2 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              {{ appointment.time }} ({{ appointment.duration }} min)
+            </div>
+          </div>
+
+          @if (appointment.symptoms) {
+            <div class="mb-4">
+              <p class="text-sm font-medium text-gray-700">Symptoms:</p>
+              <p class="text-sm text-gray-600">{{ appointment.symptoms }}</p>
+            </div>
+          }
+
+          @if (appointment.notes) {
+            <div class="mb-4">
+              <p class="text-sm font-medium text-gray-700">Notes:</p>
+              <p class="text-sm text-gray-600">{{ appointment.notes }}</p>
+            </div>
+          }
+
+          @if (canCancel(appointment)) {
+            <div class="flex justify-end pt-4 border-t">
+              <button
+                (click)="cancelAppointment(appointment.id)"
+                class="px-4 py-2 text-sm font-medium text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+              >
+                Cancel Appointment
+              </button>
+            </div>
+          }
+        </div>
+      }
+    </div>
+  }
+</div>

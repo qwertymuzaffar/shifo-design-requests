@@ -218,6 +218,11 @@ export const routes: Routes = [
             },
             pathMatch: "full",
          },
+         {
+            path: "patient-portal",
+            loadComponent: () => import("@features/patient-portal/patient-portal.component").then((m) => m.PatientPortalComponent),
+            pathMatch: "full",
+         },
          { path: "", redirectTo: "patients", pathMatch: "full" },
       ],
    },
