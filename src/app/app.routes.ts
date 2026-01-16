@@ -9,6 +9,10 @@ export const routes: Routes = [
       loadComponent: () => import("./login/login.component").then((m) => m.LoginComponent),
    },
    {
+      path: "deferred-appointments",
+      loadComponent: () => import("@features/deferred-appointments/deferred-appointments.component").then((m) => m.DeferredAppointmentsComponent),
+   },
+   {
       path: "",
       loadComponent: () => import("./layout/layout.component").then((m) => m.LayoutComponent),
       canActivate: [AUTH_GUARD],
@@ -213,18 +217,6 @@ export const routes: Routes = [
             data: {
               permissions: {
                 only: [UserRole.ADMIN],
-                redirectTo: "dashboard"
-              }
-            },
-            pathMatch: "full",
-         },
-         {
-            path: "deferred-appointments",
-            loadComponent: () => import("@features/deferred-appointments/deferred-appointments.component").then((m) => m.DeferredAppointmentsComponent),
-            canActivate: [ngxPermissionsGuard],
-            data: {
-              permissions: {
-                only: [UserRole.ADMIN, UserRole.DOCTOR, UserRole.RECEPTIONIST],
                 redirectTo: "dashboard"
               }
             },

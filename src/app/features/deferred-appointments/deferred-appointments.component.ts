@@ -21,8 +21,8 @@ export class DeferredAppointmentsComponent implements OnInit {
   filterStatus = signal<'all' | 'pending' | 'taken'>('pending');
 
   ngOnInit() {
-    this.loadCurrentDoctor();
     this.loadAppointments();
+    this.loadCurrentDoctor();
   }
 
   loadCurrentDoctor() {
@@ -30,8 +30,8 @@ export class DeferredAppointmentsComponent implements OnInit {
       next: (user) => {
         this.currentDoctorId.set(user.id);
       },
-      error: (err: unknown) => {
-        console.error('Error loading current doctor:', err);
+      error: () => {
+        this.currentDoctorId.set(null);
       }
     });
   }
