@@ -111,13 +111,13 @@ export class DeferredAppointmentsComponent implements OnInit {
   getStatusBadgeClass(status: string): string {
     switch (status) {
       case 'pending':
-        return 'bg-yellow-100 text-yellow-800';
+        return 'bg-yellow-100 border border-yellow-200 text-yellow-800';
       case 'taken':
-        return 'bg-green-100 text-green-800';
+        return 'bg-green-100 border border-green-200 text-green-800';
       case 'cancelled':
-        return 'bg-red-100 text-red-800';
+        return 'bg-red-100 border border-red-200 text-red-800';
       default:
-        return 'bg-gray-100 text-gray-800';
+        return 'bg-gray-100 border border-gray-200 text-gray-800';
     }
   }
 
