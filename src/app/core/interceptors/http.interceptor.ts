@@ -20,6 +20,7 @@ export const httpInterceptor: HttpInterceptorFn = (req, next) => {
 
   const isDebtorsRequest = req.url === '/analytics/debtors';
   const isOverpaymentsRequest = req.url === '/analytics/overpayments';
+  const isDeferredAppointmentsRequest = req.url.startsWith('/deferred-appointments');
 
   if (isDebtorsRequest || isOverpaymentsRequest) {
     const functionName = isDebtorsRequest ? 'analytics-debtors' : 'analytics-overpayments';
@@ -27,6 +28,14 @@ export const httpInterceptor: HttpInterceptorFn = (req, next) => {
       url: `${SUPABASE_URL}/functions/v1/${functionName}`,
       setHeaders: {
         'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+        'Content-Type': 'application/json',
+      },
+    });
+  } else if (isDeferredAppointmentsRequest) {
+    req = req.clone({
+      url: `${SUPABASE_URL}/functions/v1/deferred-appointments${req.url.substring('/deferred-appointments'.length)}`,
+      setHeaders: {
+        'Authorization': `Bearer ${token || SUPABASE_ANON_KEY}`,
         'Content-Type': 'application/json',
       },
     });
