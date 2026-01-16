@@ -1,0 +1,166 @@
+<div class="min-h-screen bg-gray-50 p-4 sm:p-6 lg:p-8">
+  <div class="max-w-7xl mx-auto">
+    <div class="mb-6">
+      <h1 class="text-3xl font-bold text-gray-900">Deferred Appointments</h1>
+      <p class="mt-2 text-gray-600">View and manage pending appointment requests from patients</p>
+    </div>
+
+    <div class="mb-6 flex flex-wrap gap-2">
+      <button
+        (click)="setFilter('pending')"
+        [class.bg-blue-600]="filterStatus() === 'pending'"
+        [class.text-white]="filterStatus() === 'pending'"
+        [class.bg-white]="filterStatus() !== 'pending'"
+        [class.text-gray-700]="filterStatus() !== 'pending'"
+        [class.border-gray-300]="filterStatus() !== 'pending'"
+        class="px-4 py-2 rounded-lg border transition-colors hover:bg-blue-50"
+      >
+        Pending
+      </button>
+      <button
+        (click)="setFilter('taken')"
+        [class.bg-blue-600]="filterStatus() === 'taken'"
+        [class.text-white]="filterStatus() === 'taken'"
+        [class.bg-white]="filterStatus() !== 'taken'"
+        [class.text-gray-700]="filterStatus() !== 'taken'"
+        [class.border-gray-300]="filterStatus() !== 'taken'"
+        class="px-4 py-2 rounded-lg border transition-colors hover:bg-blue-50"
+      >
+        Taken
+      </button>
+      <button
+        (click)="setFilter('all')"
+        [class.bg-blue-600]="filterStatus() === 'all'"
+        [class.text-white]="filterStatus() === 'all'"
+        [class.bg-white]="filterStatus() !== 'all'"
+        [class.text-gray-700]="filterStatus() !== 'all'"
+        [class.border-gray-300]="filterStatus() !== 'all'"
+        class="px-4 py-2 rounded-lg border transition-colors hover:bg-blue-50"
+      >
+        All
+      </button>
+    </div>
+
+    @if (loading()) {
+      <div class="bg-white rounded-lg shadow p-8">
+        <div class="flex items-center justify-center">
+          <div class="inline-block animate-spin rounded-full h-8 w-8 border-4 border-blue-600 border-t-transparent"></div>
+          <p class="ml-3 text-gray-600">Loading appointments...</p>
+        </div>
+      </div>
+    } @else if (appointments().length === 0) {
+      <div class="bg-white rounded-lg shadow p-12 text-center">
+        <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+        </svg>
+        <h3 class="mt-2 text-sm font-medium text-gray-900">No deferred appointments</h3>
+        <p class="mt-1 text-sm text-gray-500">There are no appointments matching your filter.</p>
+      </div>
+    } @else {
+      <div class="bg-white rounded-lg shadow overflow-hidden">
+        <div class="overflow-x-auto">
+          <table class="min-w-full divide-y divide-gray-200">
+            <thead class="bg-gray-50">
+              <tr>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Patient
+                </th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Procedure
+                </th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Notes
+                </th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Status
+                </th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Created
+                </th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Assigned Doctor
+                </th>
+                <th scope="col" class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Actions
+                </th>
+              </tr>
+            </thead>
+            <tbody class="bg-white divide-y divide-gray-200">
+              @for (appointment of appointments(); track appointment.id) {
+                <tr class="hover:bg-gray-50 transition-colors">
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <div class="flex items-center">
+                      <div class="flex-shrink-0 h-10 w-10">
+                        <div class="h-10 w-10 rounded-full bg-blue-100 flex items-center justify-center">
+                          <span class="text-blue-600 font-medium text-sm">
+                            {{ appointment.patient?.fullName?.charAt(0) || 'P' }}
+                          </span>
+                        </div>
+                      </div>
+                      <div class="ml-4">
+                        <div class="text-sm font-medium text-gray-900">
+                          {{ appointment.patient?.fullName || 'Patient #' + appointment.patient_id }}
+                        </div>
+                        @if (appointment.patient?.phone) {
+                          <div class="text-sm text-gray-500">
+                            {{ appointment.patient?.phone }}
+                          </div>
+                        }
+                      </div>
+                    </div>
+                  </td>
+                  <td class="px-6 py-4">
+                    <div class="text-sm font-medium text-gray-900">{{ appointment.procedure_name }}</div>
+                  </td>
+                  <td class="px-6 py-4">
+                    <div class="text-sm text-gray-500 max-w-xs truncate">
+                      {{ appointment.notes || '-' }}
+                    </div>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <span
+                      [class]="getStatusBadgeClass(appointment.status)"
+                      class="px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full"
+                    >
+                      {{ getStatusLabel(appointment.status) }}
+                    </span>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    {{ formatDate(appointment.created_at) }}
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    @if (appointment.assigned_doctor) {
+                      <div class="text-sm text-gray-900">
+                        Dr. {{ appointment.assigned_doctor.firstName }} {{ appointment.assigned_doctor.lastName }}
+                      </div>
+                    } @else {
+                      <span class="text-sm text-gray-400">Not assigned</span>
+                    }
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                    @if (appointment.status === 'pending') {
+                      <button
+                        (click)="takeAppointment(appointment.id)"
+                        class="inline-flex items-center px-3 py-1.5 border border-transparent text-xs font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 mr-2"
+                      >
+                        Take
+                      </button>
+                      <button
+                        (click)="cancelAppointment(appointment.id)"
+                        class="inline-flex items-center px-3 py-1.5 border border-gray-300 text-xs font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                      >
+                        Cancel
+                      </button>
+                    } @else {
+                      <span class="text-gray-400 text-xs">No actions available</span>
+                    }
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+    }
+  </div>
+</div>

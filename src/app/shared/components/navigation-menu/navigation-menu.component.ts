@@ -28,6 +28,7 @@ import {
   MessageSquare,
   UserCog,
   User,
+  Clock,
   LucideAngularModule,
 } from 'lucide-angular';
 import { rxResource } from '@angular/core/rxjs-interop';
@@ -84,6 +85,7 @@ export class NavigationMenuComponent {
   protected readonly MessageSquare = MessageSquare;
   protected readonly UserCog = UserCog;
   protected readonly User = User;
+  protected readonly Clock = Clock;
 
   setLang(lang: string): void {
     this.translocoService.setActiveLang(lang);

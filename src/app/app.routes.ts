@@ -219,6 +219,18 @@ export const routes: Routes = [
             pathMatch: "full",
          },
          {
+            path: "deferred-appointments",
+            loadComponent: () => import("@features/deferred-appointments/deferred-appointments.component").then((m) => m.DeferredAppointmentsComponent),
+            canActivate: [ngxPermissionsGuard],
+            data: {
+              permissions: {
+                only: [UserRole.ADMIN, UserRole.DOCTOR, UserRole.RECEPTIONIST],
+                redirectTo: "dashboard"
+              }
+            },
+            pathMatch: "full",
+         },
+         {
             path: "patient-portal",
             loadComponent: () => import("@features/patient-portal/patient-portal.component").then((m) => m.PatientPortalComponent),
             pathMatch: "full",

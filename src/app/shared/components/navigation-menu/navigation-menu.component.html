@@ -74,6 +74,25 @@
   </button>
 
   <button
+    *ngxPermissionsOnly="[userRole.ADMIN, userRole.DOCTOR, userRole.RECEPTIONIST]"
+    [routerLink]="'/deferred-appointments'"
+    (click)="onItemClick()"
+    class="w-full flex items-center px-3.5 py-3 text-left rounded-lg transition-colors h-12"
+    [ngClass]="{
+      'bg-sky-500 text-white': isActive('/deferred-appointments'),
+      'text-gray-600 hover:bg-gray-100': !isActive('/deferred-appointments'),
+    }"
+  >
+    <lucide-icon [img]="Clock" [size]="20" class="w-5 h-5 "></lucide-icon>
+    <span
+      class="font-medium overflow-hidden whitespace-nowrap ml-3 nav-text"
+      [ngClass]="{ hidden: !isMobile() && collapsed() }"
+    >
+      Deferred Appointments
+    </span>
+  </button>
+
+  <button
     *ngxPermissionsOnly="[userRole.ADMIN, userRole.RECEPTIONIST]"
     [routerLink]="'/finances'"
     (click)="onItemClick()"
